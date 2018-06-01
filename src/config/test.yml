@@ -1,0 +1,8 @@
+# Users
+users:
+- &user0 
+    _id: 0
+    idUsuario: Jesusz27 
+- &user1
+    _id: 1
+    idUsuario: Jesus1352 
