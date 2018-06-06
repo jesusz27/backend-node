@@ -30,6 +30,7 @@
   "dependencies": {
     "@types/dookie": "^0.1.1",
     "@types/js-yaml": "^3.11.1",
+    "@types/socket.io": "^1.4.34",
     "async": "^2.6.0",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.5.1",

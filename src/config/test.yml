@@ -1,8 +1,14 @@
 # Users
 users:
 - &user0 
-    _id: 0
-    idUsuario: Jesusz27 
+    _id: {$oid: "161d87b8b260cf35147998ca"}
+    idUser: Jesusz27 
 - &user1
-    _id: 1
-    idUsuario: Jesus1352 
+    _id: {$oid: "261d87b8b260cf35147998ca"}
+    idUser: Jesus1352 
+
+# Contacts
+contacts:
+- &contact0
+    codUser: {$oid: "161d87b8b260cf35147998ca"}
+    codContact: {$oid: "261d87b8b260cf35147998ca"}

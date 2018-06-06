@@ -11,5 +11,8 @@ export class UserResource {
     async create(name: string): Promise<User> {
         return await this.userDao.create(name);
     }
+    async findByIdUser(idUser: string): Promise<User> {
+        return await this.userDao.findByIdUser(idUser);
+    }
 
 }

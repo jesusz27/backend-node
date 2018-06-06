@@ -9,7 +9,7 @@ export class UserBuilder {
         this.user.setId(id);
         return this;
     }
-    setName(idUser: string) {
+    setIdUser(idUser: string) {
         this.user.setIdUser(idUser);
         return this;
     }
