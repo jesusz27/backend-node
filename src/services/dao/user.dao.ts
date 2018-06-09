@@ -12,7 +12,6 @@ export class UserDao {
     async findByIdUser(idUser: string): Promise<User> {
         return await UserSchema.findOne({ idUser: idUser })
             .then((userDocument: Document) => {
-                console.log("respuesta" + userDocument);
                 const user: User = userDocument ? UserDao.toUser(userDocument) : undefined;
                 return user;
             })

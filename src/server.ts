@@ -11,8 +11,15 @@ app.use(errorHandler());
 /**
  * Start Express server.
  */
+const options = {
+  pingTimeout: 3000,
+  pingInterval: 3000
+};
 const serve = require("http").Server(app);
-const socket: Socket = new Socket(serve);
+const io = require("socket.io")(serve, options);
+const socket: Socket = new Socket();
+socket.io = io;
+socket.loadSocket();
 const server = serve.listen(app.get("port"), () => {
   console.log(
     "  >App is running at http://localhost:%d in %s mode",
