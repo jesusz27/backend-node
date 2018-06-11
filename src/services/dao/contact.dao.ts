@@ -18,6 +18,9 @@ export class ContactDao {
     private static toContact(document: any): Contact {
         return new ContactBuilder()
             .setId(document.get("_id"))
+            .setCodUser(new UserBuilder(document.get("codUser").get("idUser"))
+                .setId(document.get("codUser").get("_id"))
+                .build())
             .setCodContact(new UserBuilder(document.get("codContact").get("idUser"))
                 .setId(document.get("codContact").get("_id"))
                 .build())
@@ -46,7 +49,7 @@ export class ContactDao {
     async findByCodUser(user: User): Promise<Contact[]> {
         return ContactSchema.find({ codUser: user })
             .then(async (contactsDocument: Document[]) => {
-                const contactsPopulate: Document[] = await UserSchema.populate(contactsDocument, { path: "codContact" });
+                const contactsPopulate: Document[] = await UserSchema.populate(contactsDocument, { path: "codUser codContact" });
                 const contacts: Contact[] = contactsPopulate ? ContactDao.toArrayContacts(contactsPopulate) : undefined;
                 return contacts;
             })

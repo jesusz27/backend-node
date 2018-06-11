@@ -1,5 +1,4 @@
 import socketIo from "socket.io";
-import { ContactResource } from "../resources/contact.resource";
 import { UserSocket } from "../dtos/userSocket.dto";
 import { UserDto } from "../dtos/user.dto";
 import { LocationDto } from "../dtos/location.dto";
@@ -8,17 +7,14 @@ import { SocketService } from "../services/socket.service";
 import { Contact } from "../models/contact.model";
 import async from "async";
 export default class Socket {
-    private contactResource: ContactResource;
     public io: any;
     private socketService: SocketService;
     constructor() {
-        this.contactResource = new ContactResource();
         this.socketService = new SocketService();
     }
 
     public loadSocket() {
         const userSocketList: UserSocket[] = [];
-        const contactResource = this.contactResource;
         const socketService = this.socketService;
         const io = this.io;
         io.sockets.on("connection", function (socket: any) {
@@ -34,10 +30,7 @@ export default class Socket {
                 const locationData: LocationDto = JSON.parse(location);
                 const userCurrent = findBySocketId(socket.id);
                 const track: TrackInputDto = { idTrack: locationData.idTrack, location: location };
-                const trackDetail: any = await socketService.addTrackDetail(track);
-                console.log("track detail");
-                console.log(trackDetail);
-                const contact: string[] = await socketService.findByCodUser({ idUser: userCurrent });
+                const contact: string[] = await socketService.findByCodContact({ idUser: userCurrent });
                 if (contact) {
                     for (let i = 0; i < contact.length; i++) {
                         const contactCurrent = findByCodUser(contact[i]);
@@ -45,6 +38,12 @@ export default class Socket {
                             io.sockets.connected[contactCurrent].emit("receptor", location);
                         }
                     }
+                }
+                const contact2: Contact[] = await socketService.findByCodUser({ idUser: userCurrent });
+                if (contact2) {
+                    const trackDetail: any = await socketService.create(track, contact2);
+                    console.log("track detail");
+                    console.log(trackDetail);
                 }
             });
 
