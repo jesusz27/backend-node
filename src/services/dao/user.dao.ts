@@ -3,6 +3,7 @@ import logger from "../../util/logger";
 import UserSchema from "../../schemas/user.schema";
 import { UserBuilder } from "../../models/builders/user.builder";
 import { Document } from "mongoose";
+
 export class UserDao {
     constructor() {
     }
@@ -33,5 +34,6 @@ export class UserDao {
                 return undefined;
             });
     }
+
 
 }

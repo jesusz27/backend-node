@@ -12,7 +12,7 @@ export class TrackDetailDao {
         this.userDao = new UserDao();
     }
     private static toTrackDetail(document: Document): TrackDetail {
-        return new TrackDetailBuilder(document.get("idTrack")).setId(document.get("_id")).setLocationStorage(document.get("locationStorage")).build();
+        return new TrackDetailBuilder(document.get("idTrack")).setId(document.get("_id")).setIdTrack(document.get("idTrack")).setLocationStorage(document.get("locationStorage")).build();
     }
 
 

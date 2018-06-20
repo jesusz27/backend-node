@@ -11,5 +11,8 @@ export class TrackDetailResource {
     async create(trackInputDto: TrackInputDto): Promise<TrackDetail> {
         return await this.trackDetailDao.create(trackInputDto);
     }
+    async findByIdTrack(idTrack: string): Promise<TrackDetail> {
+        return await this.trackDetailDao.findByIdTrack(idTrack);
+    }
 }
 

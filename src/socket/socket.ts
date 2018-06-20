@@ -45,6 +45,7 @@ export default class Socket {
                     console.log("track detail");
                     console.log(trackDetail);
                 }
+                response(JSON.stringify(contact));
             });
 
             socket.on("disconnect", function () {

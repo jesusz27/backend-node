@@ -5,5 +5,5 @@ const Contact = new mongoose.Schema({
     codContact: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-const RelationSchema = mongoose.model("Contact", Contact);
-export default RelationSchema;
+const ContactSchema = mongoose.model("Contact", Contact);
+export default ContactSchema;

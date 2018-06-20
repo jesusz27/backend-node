@@ -5,5 +5,5 @@ const TrackDetail = new mongoose.Schema({
     locationStorage: { type: String, required: true },
 });
 
-const RelationSchema = mongoose.model("TrackDetail", TrackDetail);
-export default RelationSchema;
+const TrackDetailSchema = mongoose.model("TrackDetail", TrackDetail);
+export default TrackDetailSchema;
