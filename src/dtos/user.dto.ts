@@ -1,3 +1,5 @@
 export interface UserDto {
-    idUser: string;
+    idUser?: string;
+    password?: string;
+    email?: string;
 }

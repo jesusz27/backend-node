@@ -13,6 +13,14 @@ export class UserBuilder {
         this.user.setIdUser(idUser);
         return this;
     }
+    setPassword(password: string) {
+        this.user.setPassword(password);
+        return this;
+    }
+    setEmail(email: string) {
+        this.user.setEmail(email);
+        return this;
+    }
     build(): User {
         return this.user;
     }

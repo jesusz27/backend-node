@@ -6,6 +6,11 @@ users:
 - &user1
     _id: {$oid: "261d87b8b260cf35147998ca"}
     idUser: Jesus1352 
+- &user2
+    _id: {$oid: "361d87b8b260cf35147998ca"}
+    idUser: Jay
+    email: ja@a.com
+    password: 1234a
 
 # Contacts
 contacts:

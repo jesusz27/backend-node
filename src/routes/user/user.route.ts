@@ -7,5 +7,10 @@ const userController: UserController = new UserController();
 userRoutes.post("", (req, res) => {
     userController.create(req, res);
 });
-
+userRoutes.get("/:idUser", (req, res) => {
+    userController.findByIdUser(req, res);
+});
+userRoutes.post("/login", (req, res) => {
+    userController.login(req, res);
+});
 export default userRoutes;
