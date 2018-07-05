@@ -35,7 +35,7 @@ app.use(expressValidator());
 app.use(cors());
 app.use(morgan("dev"));
 app.disable("etag");
-app.use(expressStatusMonitor());
+// app.use(require("express-status-monitor")());
 console.log("\n  >Estado del servidor en: http://localhost:3000/status \n");
 app.use("/", api);
 app.get("/", (req, res) => {

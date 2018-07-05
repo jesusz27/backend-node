@@ -18,10 +18,5 @@ export class UserController {
     const user: User = await this.userResource.findByIdUser(req.params.idUser);
     user ? res.status(HttpStatusCode.OK).json(user) : res.status(HttpStatusCode.NOT_FOUND);
   }
-  async login(req: Request, res: Response): Promise<any> {
-    const userDto: UserDto = req.body;
-    const user: User = await this.userResource.findByIdUserAndPassword(userDto);
-    user ? res.status(HttpStatusCode.OK).json(user) : res.status(HttpStatusCode.NOT_FOUND).end();
-  }
 
 }

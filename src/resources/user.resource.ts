@@ -9,11 +9,15 @@ export class UserResource {
         this.userDao = new UserDao();
     }
 
-    async create(name: string): Promise<User> {
-        return await this.userDao.create(name);
+    async create(userDto: UserDto): Promise<User> {
+        return await this.userDao.create(userDto);
     }
     async findByIdUser(idUser: string): Promise<User> {
         return await this.userDao.findByIdUser(idUser);
+    }
+
+    async findByEmail(email: string): Promise<User> {
+        return await this.userDao.findByEmail(email);
     }
     async findByIdUserAndPassword(userDtop: UserDto): Promise<User> {
         return await this.userDao.findByIdUserAndPassword(userDtop);

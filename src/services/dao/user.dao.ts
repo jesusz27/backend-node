@@ -22,6 +22,17 @@ export class UserDao {
                 return undefined;
             });
     }
+    async findByEmail(email: string): Promise<User> {
+        return await UserSchema.findOne({ email: email })
+            .then((userDocument: Document) => {
+                const user: User = userDocument ? UserDao.toUser(userDocument) : undefined;
+                return user;
+            })
+            .catch(err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
     async findByIdUserAndPassword(userDto: UserDto): Promise<User> {
         return await UserSchema.findOne({ idUser: userDto.idUser, password: userDto.password })
             .then((userDocument: Document) => {
@@ -33,8 +44,8 @@ export class UserDao {
                 return undefined;
             });
     }
-    async create(idUser: string): Promise<User> {
-        const userEntity = new UserBuilder(idUser).build();
+    async create(userDto: UserDto): Promise<User> {
+        const userEntity = new UserBuilder(userDto.idUser).setEmail(userDto.email).setPassword(userDto.password).build();
         const user = new UserSchema(userEntity);
         return user.save()
             .then((userDocument: Document) => {
