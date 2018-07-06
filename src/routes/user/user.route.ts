@@ -10,5 +10,8 @@ userRoutes.post("", (req, res) => {
 userRoutes.get("/:idUser", (req, res) => {
     userController.findByIdUser(req, res);
 });
+userRoutes.get("", (req, res) => {
+    userController.findAll(req, res);
+});
 
 export default userRoutes;

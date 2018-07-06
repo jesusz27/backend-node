@@ -17,8 +17,8 @@ export class ContactResource {
         const lowerUser: User = await this.userResource.findByIdUser(contactInputDto.codContact);
         return this.contactDao.findByCodUserAndCodContact(topUser, lowerUser);
     }
-    async findByCodUser(userDto: UserDto): Promise<Contact[]> {
-        const user: User = await this.userResource.findByIdUser(userDto.idUser);
+    async findByCodUser(idUser: string): Promise<Contact[]> {
+        const user: User = await this.userResource.findByIdUser(idUser);
         return this.contactDao.findByCodUser(user);
     }
 }

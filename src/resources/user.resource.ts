@@ -15,9 +15,11 @@ export class UserResource {
     async findByIdUser(idUser: string): Promise<User> {
         return await this.userDao.findByIdUser(idUser);
     }
-
     async findByEmail(email: string): Promise<User> {
         return await this.userDao.findByEmail(email);
+    }
+    async findAll(): Promise<User[]> {
+        return await this.userDao.findAll();
     }
     async findByIdUserAndPassword(userDtop: UserDto): Promise<User> {
         return await this.userDao.findByIdUserAndPassword(userDtop);

@@ -7,6 +7,7 @@ import { ContactInputDto } from "../dtos/contactInput.dto";
 import { UserResource } from "../resources/user.resource";
 import { User } from "../models/user.model";
 
+
 export class ContactController {
     private contactResource: ContactResource;
     private userResource: UserResource;
@@ -18,7 +19,12 @@ export class ContactController {
 
     async delete(req: Request, res: Response): Promise<any> {
         const contactInputDto: ContactInputDto = req.body;
-            const contact: Contact[] =  await this.contactResource.findByCodUserAndCodContact(contactInputDto);
-            contact ? res.status(HttpStatusCode.OK).json(contact) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+        const contact: Contact[] = await this.contactResource.findByCodUserAndCodContact(contactInputDto);
+        contact ? res.status(HttpStatusCode.OK).json(contact) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+    }
+    async findByCodUser(req: Request, res: Response): Promise<any> {
+        const idUser: string = req.params.idUser;
+        const contact: Contact[] = await this.contactResource.findByCodUser(idUser);
+        contact ? res.status(HttpStatusCode.OK).json(contact) : res.status(HttpStatusCode.NOT_FOUND);
     }
 }

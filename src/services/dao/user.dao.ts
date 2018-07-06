@@ -8,6 +8,13 @@ import { Document } from "mongoose";
 export class UserDao {
     constructor() {
     }
+    private static toArrayUsers(documents: Document[]): User[] {
+        const users: User[] = [];
+        for (let i = 0; i < documents.length; i++) {
+            users.push(UserDao.toUser(documents[i]));
+        }
+        return users;
+    }
     private static toUser(document: Document): User {
         return new UserBuilder(document.get("idUser")).setId(document.get("_id")).setEmail(document.get("email")).build();
     }
@@ -29,6 +36,18 @@ export class UserDao {
                 return user;
             })
             .catch(err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
+
+    async findAll(): Promise<User[]> {
+        return await UserSchema.find({})
+            .then( (usersDocument: Document[]) => {
+                const users: User[] = usersDocument ? UserDao.toArrayUsers(usersDocument) : undefined;
+                return users;
+            })
+            .catch ( err => {
                 logger.error(err);
                 return undefined;
             });

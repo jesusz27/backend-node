@@ -30,7 +30,7 @@ export default class Socket {
                 const locationData: LocationDto = JSON.parse(location);
                 const userCurrent = findBySocketId(socket.id);
                 const track: TrackInputDto = { idTrack: locationData.idTrack, location: location };
-                const contact: string[] = await socketService.findByCodContact({ idUser: userCurrent });
+                const contact: string[] = await socketService.findByCodContact(userCurrent);
                 if (contact) {
                     for (let i = 0; i < contact.length; i++) {
                         const contactCurrent = findByCodUser(contact[i]);
@@ -39,7 +39,7 @@ export default class Socket {
                         }
                     }
                 }
-                const contact2: Contact[] = await socketService.findByCodUser({ idUser: userCurrent });
+                const contact2: Contact[] = await socketService.findByCodUser(userCurrent);
                 if (contact2) {
                     const trackDetail: any = await socketService.create(track, contact2);
                     console.log("track detail");

@@ -15,12 +15,12 @@ export class SocketService {
         this.trackDetailDao = new TrackDetailDao();
         this.trackDao = new TrackDao();
     }
-    async findByCodUser(userDto: UserDto): Promise<Contact[]> {
-        const contact: Contact[] = await this.contactResource.findByCodUser(userDto);
+    async findByCodUser(idUser: string): Promise<Contact[]> {
+        const contact: Contact[] = await this.contactResource.findByCodUser(idUser);
         return contact;
     }
-    async findByCodContact(userDto: UserDto): Promise<string[]> {
-        const contact: Contact[] = await this.contactResource.findByCodUser(userDto);
+    async findByCodContact(idUser: string): Promise<string[]> {
+        const contact: Contact[] = await this.contactResource.findByCodUser(idUser);
         const contactStr: string[] = [];
         for (let i = 0; i < contact.length; i++) {
             contactStr.push(contact[i].getCodContact().getIdUser());
