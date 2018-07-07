@@ -16,12 +16,16 @@ export class ContactController {
         this.contactResource = new ContactResource();
         this.userResource = new UserResource();
     }
-
-    async delete(req: Request, res: Response): Promise<any> {
+    async create(req: Request, res: Response): Promise<any> {
+        const contactInputDto: ContactInputDto = req.body;
+        const contact: Contact = await this.contactResource.create(contactInputDto);
+        contact ? res.status(HttpStatusCode.CREATED).json(contact.getCodContact()) : res.status(HttpStatusCode.BAD_REQUEST).end();
+    }
+   /* async delete(req: Request, res: Response): Promise<any> {
         const contactInputDto: ContactInputDto = req.body;
         const contact: Contact[] = await this.contactResource.findByCodUserAndCodContact(contactInputDto);
         contact ? res.status(HttpStatusCode.OK).json(contact) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
-    }
+    }*/
     async findByCodUser(req: Request, res: Response): Promise<any> {
         const idUser: string = req.params.idUser;
         const contact: Contact[] = await this.contactResource.findByCodUser(idUser);

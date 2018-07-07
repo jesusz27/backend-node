@@ -3,6 +3,7 @@ import { UserDao } from "./user.dao";
 import { User } from "../../models/user.model";
 import ContactSchema from "../../schemas/contact.schema";
 import { ContactBuilder } from "../../models/builders/contact.builder";
+import { ContactInputDto } from "../../dtos/contactInput.dto";
 import { Document } from "mongoose";
 import UserSchema from "../../schemas/user.schema";
 import { UserBuilder } from "../../models/builders/user.builder";
@@ -23,6 +24,7 @@ export class ContactDao {
                 .build())
             .setCodContact(new UserBuilder(document.get("codContact").get("idUser"))
                 .setId(document.get("codContact").get("_id"))
+                .setEmail(document.get("codContact").get("email"))
                 .build())
             .build();
     }
@@ -33,13 +35,39 @@ export class ContactDao {
         }
         return contacts;
     }
-
-    async findByCodUserAndCodContact(top: User, lower: User): Promise<Contact[]> {
-        return ContactSchema.find({ codUser: top })
-            .then(async (contactsDocument: Document[]) => {
-                const contactsPopulate: Document[] = await UserSchema.populate(contactsDocument, { path: "codContact" });
-                const contacts: Contact[] = contactsPopulate ? ContactDao.toArrayContacts(contactsPopulate) : undefined;
-                return contacts;
+    async create(contactDto: ContactInputDto): Promise<Contact> {
+        const codUser: User = await this.userDao.findByIdUser(contactDto.codUser);
+        const codContact: User = await this.userDao.findByIdUser(contactDto.codContact);
+        if (codUser && codContact) {
+            const contact: Contact = await this.findByCodUserAndCodContact(codUser, codContact);
+            console.log(contact);
+            if (!contact) {
+                const contact: Contact = new ContactBuilder().setCodUser(new UserBuilder(codUser.getIdUser()).setId(codUser.getId()).setPassword(codUser.getPassword()).setEmail(codUser.getEmail()).build()).setCodContact(new UserBuilder(codContact.getIdUser()).setId(codContact.getId()).setPassword(codContact.getPassword()).setEmail(codContact.getEmail()).build()).build();
+                const contactSchema = new ContactSchema(contact);
+                return await contactSchema.save()
+                    .then(async (contacts: Document) => {
+                        const contactsDocument: any = await UserSchema.populate(contacts, { path: "codUser codContact" });
+                        if (contactsDocument) {
+                            return ContactDao.toContact(contactsDocument);
+                        } else {
+                            return undefined;
+                        }
+                    })
+                    .catch(err => {
+                        logger.error(err);
+                        return undefined;
+                    });
+            } else {
+                return undefined;
+            }
+        } else {
+            return undefined;
+        }
+    }
+    async findByCodUserAndCodContact(top: User, lower: User): Promise<Contact> {
+        return ContactSchema.findOne({ codUser: top, codContact: lower })
+            .then(async (contactsDocument: Document) => {
+                return contactsDocument;
             })
             .catch(err => {
                 logger.error(err);
