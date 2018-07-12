@@ -22,13 +22,14 @@ export class ContactController {
     async create(req: Request, res: Response): Promise<any> {
         const contactInputDto: ContactInputDto = req.body;
         const contact: Contact = await this.contactResource.create(contactInputDto);
-        contact ? res.status(HttpStatusCode.CREATED).json(contact.getCodContact()) : res.status(HttpStatusCode.BAD_REQUEST).end();
+        if (contact) {
+            const contactList: Contact[] = [contact];
+            const contactOutputDto: ContactOutputDto[] = this.converterModelsToDtosService.toRelationOutputDto(contactList);
+            contact ? res.status(HttpStatusCode.CREATED).json(contactOutputDto) : res.status(HttpStatusCode.BAD_REQUEST).end();
+        } else {
+            res.status(HttpStatusCode.BAD_REQUEST).end();
+        }
     }
-    /* async delete(req: Request, res: Response): Promise<any> {
-         const contactInputDto: ContactInputDto = req.body;
-         const contact: Contact[] = await this.contactResource.findByCodUserAndCodContact(contactInputDto);
-         contact ? res.status(HttpStatusCode.OK).json(contact) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
-     }*/
     async findByCodUser(req: Request, res: Response): Promise<any> {
         const idUser: string = req.params.idUser;
         const contact: Contact[] = await this.contactResource.findByCodUser(idUser);
@@ -42,5 +43,10 @@ export class ContactController {
         contactList.push(contact);
         const contactOutputDto: ContactOutputDto[] = this.converterModelsToDtosService.toRelationOutputDto(contactList);
         contactOutputDto ? res.status(HttpStatusCode.OK).json(contactOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
+    }
+    async delete(req: Request, res: Response): Promise<any> {
+        const id: string = req.params.id;
+        const success: boolean = await this.contactResource.delete(id);
+        success ? res.status(HttpStatusCode.OK).end() : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
 }

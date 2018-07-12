@@ -111,4 +111,14 @@ export class ContactDao {
                 return undefined;
             });
     }
+    async delete(id: string): Promise<boolean> {
+        return ContactSchema.deleteOne({ _id: id })
+            .then( () => {
+                return true;
+            })
+            .catch( err => {
+                logger.error(err);
+                return false;
+            });
+    }
 }

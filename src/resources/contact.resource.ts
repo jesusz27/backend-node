@@ -27,5 +27,8 @@ export class ContactResource {
     async update(id: string, status: string): Promise<Contact> {
         return await this.contactDao.update(id, status);
     }
+    async delete(id: string): Promise<boolean> {
+        return await this.contactDao.delete(id);
+    }
 }
 
