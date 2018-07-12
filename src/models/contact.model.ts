@@ -1,14 +1,15 @@
 import { User } from "./user.model";
 
 export class Contact {
-    private _id: number;
+    private _id: string;
     private codUser: User;
     private codContact: User;
+    private status: string;
 
     constructor() {
     }
 
-    getId(): number {
+    getId(): string {
         return this._id;
     }
     getCodUser(): User {
@@ -17,7 +18,10 @@ export class Contact {
     getCodContact(): User {
         return this.codContact;
     }
-    setId(id: number) {
+    getStatus(): string {
+        return this.status;
+    }
+    setId(id: string) {
         this._id = id;
     }
     setCodUser(codUser: User) {
@@ -25,5 +29,8 @@ export class Contact {
     }
     setCodContact(codContact: User) {
         this.codContact = codContact;
+    }
+    setStatus(status: string) {
+        this.status = status;
     }
 }

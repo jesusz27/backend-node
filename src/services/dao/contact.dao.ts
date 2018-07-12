@@ -26,6 +26,7 @@ export class ContactDao {
                 .setId(document.get("codContact").get("_id"))
                 .setEmail(document.get("codContact").get("email"))
                 .build())
+            .setStatus(document.get("status"))
             .build();
     }
     private static toArrayContacts(documents: Document[]): Contact[] {
@@ -82,6 +83,30 @@ export class ContactDao {
                 return contacts;
             })
             .catch(err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
+    async findById(id: string): Promise<Contact> {
+        return await ContactSchema.findById(id)
+            .then(async(contactDocument: Document) => {
+                const contactPopulate: any = await UserSchema.populate(contactDocument, { path: "codUser codContact" });
+                const contact: Contact = contactPopulate ? ContactDao.toContact(contactPopulate) : undefined;
+                return contact;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
+    async update(id: string, status: string): Promise<Contact> {
+        return await ContactSchema.findOneAndUpdate({ _id: id }, { $set: {status: status}}, { new: true })
+            .then(async () => {
+                const contact: Contact = await this.findById(id);
+                console.log(contact);
+                return contact;
+            })
+            .catch ( err => {
                 logger.error(err);
                 return undefined;
             });

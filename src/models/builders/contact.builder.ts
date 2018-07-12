@@ -8,7 +8,7 @@ export class ContactBuilder {
         this.contact = new Contact();
     }
 
-    setId(id: number): ContactBuilder {
+    setId(id: string): ContactBuilder {
         this.contact.setId(id);
         return this;
     }
@@ -20,7 +20,11 @@ export class ContactBuilder {
         this.contact.setCodContact(codContact);
         return this;
     }
-    getId(): number {
+    setStatus(status: string): ContactBuilder {
+        this.contact.setStatus(status);
+        return this;
+    }
+    getId(): string {
         return this.contact.getId();
     }
     getCodUser(): User {
@@ -28,6 +32,9 @@ export class ContactBuilder {
     }
     getCodContact(): User {
         return this.contact.getCodContact();
+    }
+    getStatus(): string {
+        return this.contact.getStatus();
     }
     public build() {
         return this.contact;

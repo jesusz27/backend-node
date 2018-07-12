@@ -21,6 +21,7 @@ contacts:
 - &contact0
     codUser: {$oid: "161d87b8b260cf35147998ca"}
     codContact: {$oid: "261d87b8b260cf35147998ca"}
+    status: 'SELECTED'
 - &contact1
     codUser: {$oid: "261d87b8b260cf35147998ca"}
     codContact: {$oid: "161d87b8b260cf35147998ca"}
