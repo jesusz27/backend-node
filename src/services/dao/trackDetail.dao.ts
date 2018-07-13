@@ -1,6 +1,6 @@
+import TrackDetailSchema from "../../schemas/TrackDetail.schema";
 import { TrackDetail } from "../../models/TrackDetail.model";
 import logger from "../../util/logger";
-import TrackDetailSchema from "../../schemas/TrackDetail.schema";
 import { TrackDetailBuilder } from "../../models/builders/TrackDetail.builder";
 import { TrackInputDto } from "../../dtos/trackInput.dto";
 import { UserDao } from "./user.dao";
