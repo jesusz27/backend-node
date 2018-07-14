@@ -4,7 +4,7 @@ import { User } from "../models/user.model";
 import { UserResource } from "../resources/user.resource";
 import logger from "../util/logger";
 import { ContactInputDto } from "../dtos/contactInput.dto";
-import { UserDto } from "../dtos/user.dto";
+import { UserInputDto } from "../dtos/userInput.dto";
 export class ContactResource {
     private contactDao: ContactDao;
     private userResource: UserResource;

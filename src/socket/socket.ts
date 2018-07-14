@@ -1,6 +1,6 @@
 import socketIo from "socket.io";
 import { UserSocket } from "../dtos/userSocket.dto";
-import { UserDto } from "../dtos/user.dto";
+import { UserInputDto } from "../dtos/userInput.dto";
 import { LocationDto } from "../dtos/location.dto";
 import { TrackInputDto } from "../dtos/trackInput.dto";
 import { SocketService } from "../services/socket.service";
@@ -19,7 +19,7 @@ export default class Socket {
         const io = this.io;
         io.sockets.on("connection", function (socket: any) {
             console.log("CONNECTED KEY: " + socket.id);
-            socket.on("addUserSocket", function (userDto: UserDto, response: any) {
+            socket.on("addUserSocket", function (userDto: UserInputDto, response: any) {
                 console.log("INGRESO USUARIO (" + userDto.idUser + ")");
                 const userSocket: UserSocket = { idUser: userDto.idUser, socketId: socket.id };
                 userSocketList.push(userSocket);
