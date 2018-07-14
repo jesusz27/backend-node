@@ -30,5 +30,8 @@ export class ContactResource {
     async delete(id: string): Promise<boolean> {
         return await this.contactDao.delete(id);
     }
+    async findById(id: string): Promise<Contact> {
+        return this.contactDao.findById(id);
+    }
 }
 

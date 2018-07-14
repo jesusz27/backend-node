@@ -14,12 +14,12 @@ export class UserController {
   }
   async findByIdUser(req: Request, res: Response): Promise<any> {
     const user: User = await this.userResource.findByIdUser(req.params.idUser);
-    const UserOutputDto: UserOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
-    user ? res.status(HttpStatusCode.OK).json(UserOutputDto) : res.status(HttpStatusCode.NOT_FOUND);
+    const userOutputDto: UserOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
+    user ? res.status(HttpStatusCode.OK).json(userOutputDto) : res.status(HttpStatusCode.NOT_FOUND);
   }
   async findAll(req: Request, res: Response): Promise<any> {
     const user: User[] = await this.userResource.findAll();
-    const UserOutputDto: UserOutputDto[] = this.converterModelsToDtosService.toArrayUserOutputDto(user);
-    user ? res.status(HttpStatusCode.OK).json(user) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+    const userOutputDto: UserOutputDto[] = this.converterModelsToDtosService.toArrayUserOutputDto(user);
+    user ? res.status(HttpStatusCode.OK).json(userOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
   }
 }

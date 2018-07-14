@@ -8,12 +8,25 @@ export class ConverterModelsToDtosService {
 
     constructor() {
     }
-    toRelationOutputDto(contact: Contact[]): ContactOutputDto[] {
+
+    toContactOutputDto(contact: Contact): ContactOutputDto {
+        let contactOutputDto: ContactOutputDto = undefined;
+        if (contact) {
+            const user: User = contact.getCodContact();
+            contactOutputDto = {
+                id: contact.getId(),
+                idUser: user.getIdUser(),
+                email: user.getEmail(),
+                status: contact.getStatus()
+            };
+        }
+        return contactOutputDto;
+    }
+    toArrayContactOutputDto(contact: Contact[]): ContactOutputDto[] {
         const contactOutputDto: ContactOutputDto[] = [];
         if (contact.length > 0) {
             for (let i = 0; i < contact.length; i++) {
-                const user: User = contact[i].getCodContact();
-                contactOutputDto.push({ id: contact[i].getId(), idUser: user.getIdUser(), email: user.getEmail(), status: contact[i].getStatus() });
+                contactOutputDto.push(this.toContactOutputDto(contact[i]));
             }
         }
         return contactOutputDto;

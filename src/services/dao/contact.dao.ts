@@ -41,7 +41,6 @@ export class ContactDao {
         const codContact: User = await this.userDao.findByIdUser(contactDto.codContact);
         if (codUser && codContact) {
             const contact: Contact = await this.findByCodUserAndCodContact(codUser, codContact);
-            console.log(contact);
             if (!contact) {
                 const contact: Contact = new ContactBuilder().setCodUser(new UserBuilder(codUser.getIdUser()).setId(codUser.getId()).setPassword(codUser.getPassword()).setEmail(codUser.getEmail()).build()).setCodContact(new UserBuilder(codContact.getIdUser()).setId(codContact.getId()).setPassword(codContact.getPassword()).setEmail(codContact.getEmail()).build()).build();
                 const contactSchema = new ContactSchema(contact);
@@ -95,7 +94,6 @@ export class ContactDao {
                 return contact;
             })
             .catch ( err => {
-                logger.error(err);
                 return undefined;
             });
     }
@@ -103,7 +101,6 @@ export class ContactDao {
         return await ContactSchema.findOneAndUpdate({ _id: id }, { $set: {status: status}}, { new: true })
             .then(async () => {
                 const contact: Contact = await this.findById(id);
-                console.log(contact);
                 return contact;
             })
             .catch ( err => {
