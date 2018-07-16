@@ -1,5 +1,5 @@
 import { UserDao } from "../services/dao/user.dao";
-import { User } from "../models/User.model";
+import { User } from "../models/user.model";
 import { UserInputDto } from "../dtos/userInput.dto";
 
 export class UserResource {
