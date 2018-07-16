@@ -36,7 +36,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.disable("etag");
 // app.use(require("express-status-monitor")());
-console.log("\n  >Estado del servidor en: http://localhost:3000/status \n");
+console.log("\n  >Estado del servidor en: http://localhost:9095/status \n");
 app.use("/", api);
 app.get("/", (req, res) => {
   res.send("funcionandos");

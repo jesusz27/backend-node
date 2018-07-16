@@ -1,6 +1,6 @@
 import { UserDao } from "../services/dao/user.dao";
 import { User } from "../models/User.model";
-import { UserDto } from "../dtos/user.dto";
+import { UserInputDto } from "../dtos/userInput.dto";
 
 export class UserResource {
     private userDao: UserDao;
@@ -9,8 +9,8 @@ export class UserResource {
         this.userDao = new UserDao();
     }
 
-    async create(userDto: UserDto): Promise<User> {
-        return await this.userDao.create(userDto);
+    async create(userInputDto: UserInputDto): Promise<User> {
+        return await this.userDao.create(userInputDto);
     }
     async findByIdUser(idUser: string): Promise<User> {
         return await this.userDao.findByIdUser(idUser);
@@ -21,8 +21,8 @@ export class UserResource {
     async findAll(): Promise<User[]> {
         return await this.userDao.findAll();
     }
-    async findByIdUserAndPassword(userDtop: UserDto): Promise<User> {
-        return await this.userDao.findByIdUserAndPassword(userDtop);
+    async findByIdUserAndPassword(userInputDto: UserInputDto): Promise<User> {
+        return await this.userDao.findByIdUserAndPassword(userInputDto);
     }
 
 

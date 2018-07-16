@@ -1,16 +1,22 @@
 language:
-    - node_js
+- node_js
 node_js:
-    - 9.2.1
+- 9.2.1
 branches:
-    only:
-    - master
-    - develop
+  only:
+  - master
+  - develop
 services:
-    - mongodb
+- mongodb
 before_script:
-    - npm install
+- npm install
 script:
-    - npm run all-test-travis
-    - sonar-scanner -Dsonar.projectKey=jazh-70213154 -Dsonar.organization=jesusz27-github -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a23f5b9cdbfa0a3cfeb017613a0a16c9b32b0bf5
-
+- npm run all-test-travis
+- sonar-scanner -Dsonar.projectKey=jazh-70213154 -Dsonar.organization=jesusz27-github
+  -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a23f5b9cdbfa0a3cfeb017613a0a16c9b32b0bf5
+deploy:
+  provider: heroku
+  api_key:
+    secure: DyoRZSh8QFAMy/tnR4/GoSqbDDdpFssbmuWnOGY9UTv12w2wGAncdZ+//fp3FlSz8rzWwwTRVerONrQoAtATRt+H0ApyxdJkR/M/nFagPbIUb7AFPpgRG+kDvCFfD1Htk8j8y4b51hvkWayx6oPigUENSqgJvqn4gM4TH3CEsoOxUuCAkfbzmVbAx9kHS526mVlD1dxixOj5N5/J9qv4RDp/4bV2WmSx87KfURBpin7s37i9yU3MlF+ndQoIPhk95Z1b73k3LuDTcC6f25Mst+oUX7iPzDQmqQOFNUZrKog+usn8xPUOewMksMT2AJh76ieykFP03yx22zmxQz2pR9x45Qvs2+cbdWh2Qmrw17SPjpnbHGMOhdYpwYUjc0lGqFx1j2i1c6J+i9PzTEVwa94bwx3tZexJfX1r1ox/BUZPvbxvs5B6XpDECA4hC55Ag4kjTOc4gmqw/WmHFR+JDk6OP11s9Ev3NqTFy3nBOfeyopMXuxqxnTSQ/WVLWbyxX3BIzd6pVGJJNBZTVhSrqvDTlKnjTutr17S7MJIqMN2bq6mMZb6icDUZY+kmYwIDK52kGQxwmm5ff8kYMs5uXY3PkJsPttWvgiszMeCR4zP90ZKaNTOdOMDABdPI6RNbbVQcE+/50GuM5A6v/M5qm6st7VQgQuAXSU5ZOijTNPE=
+  app: zea-pfm
+  on: develop

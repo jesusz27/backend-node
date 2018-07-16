@@ -1,6 +1,6 @@
 import { Contact } from "../models/contact.model";
 import { ContactResource } from "../resources/contact.resource";
-import { UserDto } from "../dtos/user.dto";
+import { UserInputDto } from "../dtos/userInput.dto";
 import { TrackInputDto } from "../dtos/trackInput.dto";
 import { TrackDetailDao } from "../services/dao/trackDetail.dao";
 import { TrackDetail } from "../models/trackDetail.model";

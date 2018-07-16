@@ -2,7 +2,7 @@ import { User } from "../../models/user.model";
 import logger from "../../util/logger";
 import UserSchema from "../../schemas/user.schema";
 import { UserBuilder } from "../../models/builders/user.builder";
-import { UserDto } from "../../dtos/user.dto";
+import { UserInputDto } from "../../dtos/userInput.dto";
 import { Document } from "mongoose";
 
 export class UserDao {
@@ -52,8 +52,8 @@ export class UserDao {
                 return undefined;
             });
     }
-    async findByIdUserAndPassword(userDto: UserDto): Promise<User> {
-        return await UserSchema.findOne({ idUser: userDto.idUser, password: userDto.password })
+    async findByIdUserAndPassword(userInputDto: UserInputDto): Promise<User> {
+        return await UserSchema.findOne({ idUser: userInputDto.idUser, password: userInputDto.password })
             .then((userDocument: Document) => {
                 const user: User = userDocument ? UserDao.toUser(userDocument) : undefined;
                 return user;
@@ -63,8 +63,8 @@ export class UserDao {
                 return undefined;
             });
     }
-    async create(userDto: UserDto): Promise<User> {
-        const userEntity = new UserBuilder(userDto.idUser).setEmail(userDto.email).setPassword(userDto.password).build();
+    async create(userInputDto: UserInputDto): Promise<User> {
+        const userEntity = new UserBuilder(userInputDto.idUser).setEmail(userInputDto.email).setPassword(userInputDto.password).build();
         const user = new UserSchema(userEntity);
         return user.save()
             .then((userDocument: Document) => {

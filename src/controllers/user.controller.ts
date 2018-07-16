@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { HttpStatusCode } from "../util/http-status-codes.enum";
 import { User } from "../models/user.model";
 import { UserResource } from "../resources/user.resource";
-import { UserDto } from "../dtos/user.dto";
 import { ConverterModelsToDtosService } from "../services/converterModelsToDtos.service";
 import { UserOutputDto } from "../dtos/userOutput.dto";
 export class UserController {
