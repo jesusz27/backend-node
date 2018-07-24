@@ -21,6 +21,10 @@ export class UserBuilder {
         this.user.setEmail(email);
         return this;
     }
+    setIdNotification(idNotification: string) {
+        this.user.setIdNotification(idNotification);
+        return this;
+    }
     build(): User {
         return this.user;
     }

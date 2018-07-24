@@ -40,7 +40,17 @@ export class UserDao {
                 return undefined;
             });
     }
-
+    async findByIdNotification(idNotification: string): Promise<User> {
+        return await UserSchema.findOne({ idNotification: idNotification })
+            .then((userDocument: Document) => {
+                const user: User = userDocument ? UserDao.toUser(userDocument) : undefined;
+                return user;
+            })
+            .catch(err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
     async findAll(): Promise<User[]> {
         return await UserSchema.find({})
             .then( (usersDocument: Document[]) => {
@@ -59,6 +69,37 @@ export class UserDao {
                 return user;
             })
             .catch(err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
+    async findByIdUserAndIdNotification(userInputDto: UserInputDto): Promise<User> {
+        return await UserSchema.findOne({ idUser: userInputDto.idUser, idNotification: userInputDto.idNotification })
+            .then((userDocument: Document) => {
+                const user: User = userDocument ? UserDao.toUser(userDocument) : undefined;
+                return user;
+            })
+            .catch(err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
+    async updateIdNotification(id: number, idNotification: string): Promise<User> {
+        return await UserSchema.findOneAndUpdate({ _id: id }, { $set: {idNotification: idNotification}}, { new: true })
+            .then(async () => {
+                return true;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
+    async deleteIdNotification(id: number): Promise<User> {
+        return await UserSchema.findOneAndUpdate({ _id: id }, { $unset: {idNotification: 1}}, { new: true })
+            .then(async () => {
+                return true;
+            })
+            .catch ( err => {
                 logger.error(err);
                 return undefined;
             });

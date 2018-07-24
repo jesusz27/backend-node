@@ -18,12 +18,22 @@ export class UserResource {
     async findByEmail(email: string): Promise<User> {
         return await this.userDao.findByEmail(email);
     }
+    async findByIdNotification(idNotification: string): Promise<User> {
+        return await this.userDao.findByIdNotification(idNotification);
+    }
     async findAll(): Promise<User[]> {
         return await this.userDao.findAll();
     }
     async findByIdUserAndPassword(userInputDto: UserInputDto): Promise<User> {
         return await this.userDao.findByIdUserAndPassword(userInputDto);
     }
-
-
+    async updateIdNotification(id: number, idNotification: string): Promise<User> {
+        return await this.userDao.updateIdNotification(id, idNotification);
+    }
+    async deleteIdNotification(id: number): Promise<User> {
+        return await this.userDao.deleteIdNotification(id);
+    }
+    async findByIdUserAndIdNotification(userInputDto: UserInputDto): Promise<User> {
+        return await this.userDao.findByIdUserAndIdNotification(userInputDto);
+    }
 }

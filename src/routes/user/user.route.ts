@@ -10,5 +10,7 @@ userRoutes.get("/:idUser", (req, res) => {
 userRoutes.get("", (req, res) => {
     userController.findAll(req, res);
 });
-
+userRoutes.put("/notification", (req, res) => {
+    userController.updateIdNotification(req, res);
+});
 export default userRoutes;
