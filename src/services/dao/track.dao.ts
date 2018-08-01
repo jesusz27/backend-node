@@ -39,8 +39,6 @@ export class TrackDao {
             .then(async (trackDocument: Document) => {
                 const trackPopulate: any = await UserSchema.populate(trackDocument, { path: "codUser codContact" });
                 const track: Track = trackPopulate ? TrackDao.toTrack(trackPopulate) : undefined;
-                console.log("TRack Dao");
-                console.log(trackDocument);
                 return track;
             })
             .catch(err => {

@@ -24,6 +24,10 @@ export class ContactResource {
         const user: User = await this.userResource.findByIdUser(idUser);
         return this.contactDao.findByCodUser(user);
     }
+    async findByCodUserAndStatus(idUser: string): Promise<Contact[]> {
+        const user: User = await this.userResource.findByIdUser(idUser);
+        return this.contactDao.findByCodUserAndStatus(user);
+    }
     async update(id: string, status: string): Promise<Contact> {
         return await this.contactDao.update(id, status);
     }

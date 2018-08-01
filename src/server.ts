@@ -1,8 +1,6 @@
 import errorHandler from "errorhandler";
-
 import app from "./app";
 import Socket from "./socket/socket";
-
 /**
  * Error Handler. Provides full stack - remove for production
  */

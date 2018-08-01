@@ -16,7 +16,7 @@ export class UserDao {
         return users;
     }
     private static toUser(document: Document): User {
-        return new UserBuilder(document.get("idUser")).setId(document.get("_id")).setEmail(document.get("email")).build();
+        return new UserBuilder(document.get("idUser")).setId(document.get("_id")).setEmail(document.get("email")).setIdNotification(document.get("idNotification")).build();
     }
     async findByIdUser(idUser: string): Promise<User> {
         return await UserSchema.findOne({ idUser: idUser })

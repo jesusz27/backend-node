@@ -25,6 +25,7 @@ export class ContactDao {
             .setCodContact(new UserBuilder(document.get("codContact").get("idUser"))
                 .setId(document.get("codContact").get("_id"))
                 .setEmail(document.get("codContact").get("email"))
+                .setIdNotification(document.get("codContact").get("idNotification"))
                 .build())
             .setStatus(document.get("status"))
             .build();
@@ -76,6 +77,18 @@ export class ContactDao {
     }
     async findByCodUser(user: User): Promise<Contact[]> {
         return ContactSchema.find({ codUser: user })
+            .then(async (contactsDocument: Document[]) => {
+                const contactsPopulate: Document[] = await UserSchema.populate(contactsDocument, { path: "codUser codContact" });
+                const contacts: Contact[] = contactsPopulate ? ContactDao.toArrayContacts(contactsPopulate) : undefined;
+                return contacts;
+            })
+            .catch(err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
+    async findByCodUserAndStatus(user: User): Promise<Contact[]> {
+        return ContactSchema.find({ codUser: user , status: "SELECTED"})
             .then(async (contactsDocument: Document[]) => {
                 const contactsPopulate: Document[] = await UserSchema.populate(contactsDocument, { path: "codUser codContact" });
                 const contacts: Contact[] = contactsPopulate ? ContactDao.toArrayContacts(contactsPopulate) : undefined;

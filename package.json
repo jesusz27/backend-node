@@ -32,7 +32,6 @@
     "serve-debug": "nodemon --inspect dist/server.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\"",
     "sonarcloud": "sonar-scanner -Dsonar.projectKey=jazh-70213154 -Dsonar.organization=jesusz27-github -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a23f5b9cdbfa0a3cfeb017613a0a16c9b32b0bf5 && npm run test"
-    
   },
   "dependencies": {
     "@types/dookie": "^0.1.1",
@@ -62,6 +61,7 @@
     "mongoose-sequence": "^4.0.1",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.4",
+    "onesignal-node": "^1.1.2",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",

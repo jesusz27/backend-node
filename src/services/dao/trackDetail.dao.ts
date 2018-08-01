@@ -44,7 +44,7 @@ export class TrackDetailDao {
         return await TrackDetailSchema.updateOne({ _id: id }, { $set: { locationStorage: location} }, { new: true })
             .then((trackDetailDocument: Document) => {
                 console.log("Dao Update");
-                console.log(trackDetailDocument);
+                // console.log(trackDetailDocument);
                 // const trackDetail: TrackDetail = trackDetailDocument ? TrackDetailDao.toTrackDetail(trackDetailDocument) : undefined;
                 return trackDetailDocument;
             })

@@ -24,6 +24,7 @@ export class UserController {
   }
   async updateIdNotification(req: Request, res: Response): Promise<any> {
     const userDto: UserInputDto = req.body;
+    console.log(req.body);
     const user: User = await this.userResource.findByIdUserAndIdNotification(userDto);
     if (!user) {
       const previousUser: User = await this.userResource.findByIdNotification(userDto.idNotification);

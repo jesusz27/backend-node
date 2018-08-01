@@ -21,8 +21,13 @@ export default class Socket {
             console.log("CONNECTED KEY: " + socket.id);
             socket.on("addUserSocket", function (userDto: UserInputDto, response: any) {
                 console.log("INGRESO USUARIO (" + userDto.idUser + ")");
-                const userSocket: UserSocket = { idUser: userDto.idUser, socketId: socket.id };
-                userSocketList.push(userSocket);
+                const userSocket: UserSocket = findByCodUser(userDto.idUser);
+                if (userSocket) {
+                    userSocket.socketId = socket.id;
+                } else {
+                    const userSocket: UserSocket = { idUser: userDto.idUser, socketId: socket.id };
+                    userSocketList.push(userSocket);
+                }
                 console.log(userSocketList);
             });
 
@@ -35,7 +40,7 @@ export default class Socket {
                     for (let i = 0; i < contact.length; i++) {
                         const contactCurrent = findByCodUser(contact[i]);
                         if (contactCurrent) {
-                            io.sockets.connected[contactCurrent].emit("receptor", location);
+                            io.sockets.connected[contactCurrent.socketId].emit("receptor", location);
                         }
                     }
                 }
@@ -67,10 +72,10 @@ export default class Socket {
             return userCurrent;
         }
         function findByCodUser(codUser: string) {
-            let userCurrent = undefined;
+            let userCurrent: UserSocket = undefined;
             for (let i = 0; i < userSocketList.length; i++) {
                 if (userSocketList[i].idUser == codUser) {
-                    userCurrent = userSocketList[i].socketId;
+                    userCurrent = userSocketList[i];
                 }
             }
             return userCurrent;
