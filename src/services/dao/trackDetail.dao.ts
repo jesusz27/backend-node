@@ -27,6 +27,17 @@ export class TrackDetailDao {
                 return undefined;
             });
     }
+    async findById(id: string): Promise<TrackDetail> {
+        return await TrackDetailSchema.findById(id)
+            .then((TrackDetailDocument: Document) => {
+                const TrackDetail: TrackDetail = TrackDetailDocument ? TrackDetailDao.toTrackDetail(TrackDetailDocument) : undefined;
+                return TrackDetail;
+            })
+            .catch(err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
     async create(trackInputDto: TrackInputDto): Promise<TrackDetail> {
         const TrackDetailEntity = new TrackDetailBuilder(trackInputDto.idTrack).setLocationStorage("[" + trackInputDto.location + "]").build();
         const TrackDetail = new TrackDetailSchema(TrackDetailEntity);
