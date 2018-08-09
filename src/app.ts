@@ -19,7 +19,6 @@ dotenv.config({ path: ".env" });
 
 // Create Express server
 const app = express();
-
 // Connect to MongoDB
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, {useMongoClient: true})

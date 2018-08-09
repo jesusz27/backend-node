@@ -5,12 +5,15 @@ import { UserResource } from "../resources/user.resource";
 import { ConverterModelsToDtosService } from "../services/converterModelsToDtos.service";
 import { UserOutputDto } from "../dtos/userOutput.dto";
 import { UserInputDto } from "../dtos/userInput.dto";
+import { UserService } from "../services/user.service";
 export class UserController {
   private userResource: UserResource;
   private converterModelsToDtosService: ConverterModelsToDtosService;
+  private userService: UserService;
   constructor() {
     this.userResource = new UserResource();
     this.converterModelsToDtosService = new ConverterModelsToDtosService();
+    this.userService = new UserService();
   }
   async findByIdUser(req: Request, res: Response): Promise<any> {
     const user: User = await this.userResource.findByIdUser(req.params.idUser);
@@ -34,6 +37,14 @@ export class UserController {
       user ? res.status(HttpStatusCode.OK).json(userUpdate) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     } else {
       res.status(HttpStatusCode.NOT_FOUND).end();
+    }
+  }
+  async updateAvatar(req: any, res: Response): Promise<any> {
+    const upload: boolean = await this.userService.findByCodUser(req);
+    if (upload) {
+      res.status(HttpStatusCode.OK).json(upload);
+    } else {
+      res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
   }
 }
