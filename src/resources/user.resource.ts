@@ -30,6 +30,9 @@ export class UserResource {
     async updateIdNotification(id: number, idNotification: string): Promise<User> {
         return await this.userDao.updateIdNotification(id, idNotification);
     }
+    async updateAvatar(id: number, avatar: string): Promise<User> {
+        return await this.userDao.updateAvatar(id, avatar);
+    }
     async deleteIdNotification(id: number): Promise<User> {
         return await this.userDao.deleteIdNotification(id);
     }

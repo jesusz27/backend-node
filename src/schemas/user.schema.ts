@@ -5,6 +5,7 @@ const User = new mongoose.Schema({
     password: { type: String, required: true},
     email: { type: String, required: true},
     idNotification: { type: String},
+    avatar: { type: String},
 });
 
 const UserSchema = mongoose.model("User", User);

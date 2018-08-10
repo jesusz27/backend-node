@@ -25,6 +25,10 @@ export class UserBuilder {
         this.user.setIdNotification(idNotification);
         return this;
     }
+    setAvatar(avatar: string) {
+        this.user.setAvatar(avatar);
+        return this;
+    }
     build(): User {
         return this.user;
     }

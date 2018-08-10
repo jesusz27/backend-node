@@ -5,6 +5,7 @@ export class User {
     private password: string;
     private email: string;
     private idNotification: string;
+    private avatar: string;
 
     constructor(idUser: string) {
         this.idUser = idUser;
@@ -24,6 +25,9 @@ export class User {
     public setIdNotification(idNotification: string) {
         this.idNotification = idNotification;
     }
+    public setAvatar(avatar: string) {
+        this.avatar = avatar;
+    }
     public getIdUser(): string {
         return this.idUser;
     }
@@ -36,7 +40,9 @@ export class User {
     public getIdNotification(): string {
         return this.idNotification;
     }
-
+    public getAvatar(): string {
+        return this.avatar;
+    }
     public getId(): number {
         return this._id;
     }

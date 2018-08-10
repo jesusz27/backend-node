@@ -13,7 +13,7 @@ userRoutes.get("", (req, res) => {
 userRoutes.put("/notification", (req, res) => {
     userController.updateIdNotification(req, res);
 });
-userRoutes.post("/avatar", fileUpload(), (req: any, res) => {
+userRoutes.post("/avatar/:idUser", fileUpload(), (req: any, res) => {
     userController.updateAvatar(req, res);
 });
 export default userRoutes;

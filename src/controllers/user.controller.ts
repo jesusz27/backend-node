@@ -40,9 +40,14 @@ export class UserController {
     }
   }
   async updateAvatar(req: any, res: Response): Promise<any> {
-    const upload: boolean = await this.userService.findByCodUser(req);
-    if (upload) {
-      res.status(HttpStatusCode.OK).json(upload);
+    const idUser: string = req.params.idUser;
+    const upload: string = await this.userService.uploadAvatar(req);
+    const user: User = await this.userResource.findByIdUser(idUser);
+    console.log(idUser);
+    console.log(user);
+    if (upload && User) {
+      const newUser: User = await this.userResource.updateAvatar(user.getId(), upload);
+      res.status(HttpStatusCode.OK).json(user);
     } else {
       res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }

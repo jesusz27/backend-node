@@ -16,7 +16,7 @@ export class UserDao {
         return users;
     }
     private static toUser(document: Document): User {
-        return new UserBuilder(document.get("idUser")).setId(document.get("_id")).setEmail(document.get("email")).setIdNotification(document.get("idNotification")).build();
+        return new UserBuilder(document.get("idUser")).setId(document.get("_id")).setEmail(document.get("email")).setIdNotification(document.get("idNotification")).setAvatar(document.get("avatar")).build();
     }
     async findByIdUser(idUser: string): Promise<User> {
         return await UserSchema.findOne({ idUser: idUser })
@@ -86,6 +86,16 @@ export class UserDao {
     }
     async updateIdNotification(id: number, idNotification: string): Promise<User> {
         return await UserSchema.findOneAndUpdate({ _id: id }, { $set: {idNotification: idNotification}}, { new: true })
+            .then(async () => {
+                return true;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
+    async updateAvatar(id: number, avatar: string): Promise<User> {
+        return await UserSchema.findOneAndUpdate({ _id: id }, { $set: {avatar: avatar}}, { new: true })
             .then(async () => {
                 return true;
             })
