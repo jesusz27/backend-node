@@ -5,6 +5,7 @@ export class Track {
     private codUser: User;
     private codContact: User;
     private trackDetail: TrackDetail;
+    private fecha: Date;
     constructor() {
     }
     public getId(): number {
@@ -19,6 +20,9 @@ export class Track {
     public getTrackDetail(): TrackDetail {
         return this.trackDetail;
     }
+    public getFecha(): Date {
+        return this.fecha;
+    }
     public setId(id: number) {
         this._id = id;
     }
@@ -30,5 +34,8 @@ export class Track {
     }
     public setTrackDetail(trackDetail: TrackDetail) {
         this.trackDetail = trackDetail;
+    }
+    public setFecha(fecha: Date) {
+        this.fecha = fecha;
     }
 }

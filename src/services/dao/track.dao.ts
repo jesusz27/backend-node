@@ -1,8 +1,8 @@
 import { TrackInputDto } from "../../dtos/trackInput.dto";
 import { Track } from "../../models/track.model";
 import { TrackDetail } from "../../models/trackDetail.model";
-import  TrackSchema  from "../../schemas/track.schema";
-import  UserSchema  from "../../schemas/user.schema";
+import TrackSchema from "../../schemas/track.schema";
+import UserSchema from "../../schemas/user.schema";
 import { TrackBuilder } from "../../models/builders/track.builder";
 import { UserBuilder } from "../../models/builders/user.builder";
 import logger from "../../util/logger";
@@ -12,9 +12,9 @@ export class TrackDao {
     constructor() {
 
     }
-  /*  private static toTrack(document: Document): Track {
-        return new TrackBuilder().setId(document.get("_id")).setCodUser(document.get("codUser")).build();
-    }*/
+    /*  private static toTrack(document: Document): Track {
+          return new TrackBuilder().setId(document.get("_id")).setCodUser(document.get("codUser")).build();
+      }*/
     private static toTrack(document: any): Track {
         return new TrackBuilder()
             .setId(document.get("_id"))
@@ -24,7 +24,8 @@ export class TrackDao {
             .setCodContact(new UserBuilder(document.get("codContact").get("idUser"))
                 .setId(document.get("codContact").get("_id"))
                 .build())
-                .setTrackDetail(document.get("trackDetail"))
+            .setTrackDetail(document.get("trackDetail"))
+            .setFecha(document.get("fecha"))
             .build();
     }
     private static toArrayContacts(documents: Document[]): Track[] {
@@ -35,7 +36,8 @@ export class TrackDao {
         return track;
     }
     async create(trackInputDto: TrackInputDto): Promise<Track> {
-        const TrackEntity = new TrackBuilder().setCodUser(trackInputDto.codUser).setCodContact(trackInputDto.codContact).setTrackDetail(trackInputDto.trackDetail).build();
+        const fecha: Date = new Date();
+        const TrackEntity = new TrackBuilder().setCodUser(trackInputDto.codUser).setCodContact(trackInputDto.codContact).setTrackDetail(trackInputDto.trackDetail).setFecha(fecha).build();
         const Track = new TrackSchema(TrackEntity);
         return Track.save()
             .then(async (trackDocument: Document) => {

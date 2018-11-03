@@ -52,4 +52,16 @@ export class UserController {
       res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
     }
   }
+  async updatePassword(req: Request, res: Response): Promise<any> {
+    const userDto: UserInputDto = req.body;
+    console.log(userDto);
+    const user: User = await this.userResource.findByIdUserAndPassword(userDto);
+    console.log(user);
+    if (user) {
+      const newPassword: User = await this.userResource.updatePassword(user.getId(), userDto.newPassword);
+      res.status(HttpStatusCode.OK).json(newPassword);
+    } else {
+      res.status(HttpStatusCode.BAD_REQUEST).end();
+    }
+  }
 }

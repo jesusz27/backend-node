@@ -4,4 +4,5 @@ export interface UserInputDto {
     email?: string;
     idNotification?: string;
     avatar?: string;
+    newPassword?: string;
 }

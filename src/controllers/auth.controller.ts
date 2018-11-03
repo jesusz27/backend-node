@@ -29,9 +29,8 @@ export class AuthController {
             const userOutputDto: UserOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
             user ? res.status(HttpStatusCode.CREATED).json(userOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
         } else {
-            res.status(HttpStatusCode.NOT_FOUND).end();
+            res.status(HttpStatusCode.FORBIDDEN).end();
         }
-
     }
 
 }

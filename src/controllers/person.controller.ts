@@ -42,7 +42,7 @@ export class PersonController {
         const user: User = await this.userResource.findByIdUser(req.params.idUser);
         if (user) {
             const person: Person = await this.personResource.findByUser(user.getId());
-            person ? res.status(HttpStatusCode.OK).json(person) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+            person ? res.status(HttpStatusCode.OK).json(person) : res.status(HttpStatusCode.NOT_FOUND).end();
         } else {
             res.status(HttpStatusCode.NOT_FOUND).end();
         }

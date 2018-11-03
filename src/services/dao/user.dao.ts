@@ -104,6 +104,16 @@ export class UserDao {
                 return undefined;
             });
     }
+    async updatePassword(id: number, password: string): Promise<User> {
+        return await UserSchema.findOneAndUpdate({ _id: id }, { $set: {password: password}}, { new: true })
+            .then(async () => {
+                return true;
+            })
+            .catch ( err => {
+                logger.error(err);
+                return undefined;
+            });
+    }
     async deleteIdNotification(id: number): Promise<User> {
         return await UserSchema.findOneAndUpdate({ _id: id }, { $unset: {idNotification: 1}}, { new: true })
             .then(async () => {

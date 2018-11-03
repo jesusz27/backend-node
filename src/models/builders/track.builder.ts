@@ -22,6 +22,10 @@ export class TrackBuilder {
         this.trackModel.setTrackDetail(trackDetail);
         return this;
     }
+    setFecha(fecha: Date): TrackBuilder {
+        this.trackModel.setFecha(fecha);
+        return this;
+    }
     build(): Track {
         return this.trackModel;
     }
