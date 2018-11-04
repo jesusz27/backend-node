@@ -1,3 +1,4 @@
+import path from "path";
 export class UserService {
     constructor() {
     }
@@ -5,9 +6,9 @@ export class UserService {
         const file = req.files.avatar,
             name = file.name,
             type = file.mimetype;
-        const uploadpath = "dist/uploads/" + name;
+        const uploadpath = path.join("dist", "uploads", name);
         let uploaded = "uploads/" + name;
-        console.log("ruta" + uploadpath);
+        console.log("ruta" + path.join(uploadpath));
         file.mv(uploadpath, function (err: any) {
             if (err) {
                 uploaded = undefined;
