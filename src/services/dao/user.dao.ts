@@ -125,7 +125,7 @@ export class UserDao {
             });
     }
     async create(userInputDto: UserInputDto): Promise<User> {
-        const userEntity = new UserBuilder(userInputDto.idUser).setEmail(userInputDto.email).setPassword(userInputDto.password).build();
+        const userEntity = new UserBuilder(userInputDto.idUser).setEmail(userInputDto.email).setPassword(userInputDto.password).setAvatar("uploads/default.png").build();
         const user = new UserSchema(userEntity);
         return user.save()
             .then((userDocument: Document) => {

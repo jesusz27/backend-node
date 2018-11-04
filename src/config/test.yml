@@ -5,16 +5,19 @@ users:
     idUser: Jesusz27 
     email: jez@a.com
     password: 1234a
+    avatar: uploads/default.png
 - &user1
     _id: {$oid: "261d87b8b260cf35147998ca"}
     idUser: Jesus1352 
     email: je12@a.com
     password: 1234a
+    avatar: uploads/default.png
 - &user2
     _id: {$oid: "361d87b8b260cf35147998ca"}
     idUser: Smith
     email: smith@gmail.com
     password: 1234
+    avatar: uploads/default.png
 
 # Contacts
 contacts:

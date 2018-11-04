@@ -26,6 +26,7 @@ export class ContactDao {
                 .setId(document.get("codContact").get("_id"))
                 .setEmail(document.get("codContact").get("email"))
                 .setIdNotification(document.get("codContact").get("idNotification"))
+                .setAvatar(document.get("codContact").get("avatar"))
                 .build())
             .setStatus(document.get("status"))
             .build();

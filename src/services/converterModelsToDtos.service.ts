@@ -17,7 +17,8 @@ export class ConverterModelsToDtosService {
                 id: contact.getId(),
                 idUser: user.getIdUser(),
                 email: user.getEmail(),
-                status: contact.getStatus()
+                status: contact.getStatus(),
+                avatar: user.getAvatar(),
             };
         }
         return contactOutputDto;
@@ -37,6 +38,7 @@ export class ConverterModelsToDtosService {
             userOutputDto = {
                 idUser: user.getIdUser(),
                 email: user.getEmail(),
+                avatar: user.getAvatar(),
             };
         }
         return userOutputDto;

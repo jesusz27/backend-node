@@ -3,4 +3,5 @@ export interface ContactOutputDto {
     idUser: string;
     email: string;
     status?: string;
+    avatar: string;
 }
