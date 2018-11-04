@@ -5,7 +5,7 @@ export class UserService {
         const file = req.files.avatar,
             name = file.name,
             type = file.mimetype;
-        const uploadpath = "src/uploads/" + name;
+        const uploadpath = "dist/uploads/" + name;
         let uploaded = "uploads/" + name;
         console.log("ruta" + uploadpath);
         file.mv(uploadpath, function (err: any) {
