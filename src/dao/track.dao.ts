@@ -1,13 +1,13 @@
-import { TrackInputDto } from "../../dtos/trackInput.dto";
-import { Track } from "../../models/track.model";
-import { TrackDetail } from "../../models/trackDetail.model";
-import TrackSchema from "../../schemas/track.schema";
-import UserSchema from "../../schemas/user.schema";
-import { TrackBuilder } from "../../models/builders/track.builder";
-import { UserBuilder } from "../../models/builders/user.builder";
-import logger from "../../util/logger";
+import { TrackInputDto } from "../dtos/trackInput.dto";
+import { Track } from "../models/track.model";
+import { TrackDetail } from "../models/trackDetail.model";
+import TrackSchema from "../schemas/track.schema";
+import UserSchema from "../schemas/user.schema";
+import { TrackBuilder } from "../models/builders/track.builder";
+import { UserBuilder } from "../models/builders/user.builder";
+import logger from "../util/logger";
 import { Document } from "mongoose";
-import { User } from "../../models/user.model";
+import { User } from "../models/user.model";
 export class TrackDao {
     constructor() {
 

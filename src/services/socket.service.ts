@@ -2,10 +2,10 @@ import { Contact } from "../models/contact.model";
 import { ContactResource } from "../resources/contact.resource";
 import { UserInputDto } from "../dtos/userInput.dto";
 import { TrackInputDto } from "../dtos/trackInput.dto";
-import { TrackDetailDao } from "../services/dao/trackDetail.dao";
+import { TrackDetailDao } from "../dao/trackDetail.dao";
 import { TrackDetail } from "../models/trackDetail.model";
 import { LocationDto } from "../dtos/location.dto";
-import { TrackDao } from "../services/dao/track.dao";
+import { TrackDao } from "../dao/track.dao";
 import { OneSignalService } from "./oneSignal.service";
 export class SocketService {
     private contactResource: ContactResource;

@@ -6,6 +6,7 @@ import { TrackDetailResource } from "../resources/trackDetail.resource";
 import { TrackDetail } from "../models/trackDetail.model";
 import { User } from "../models/user.model";
 import { UserResource } from "../resources/user.resource";
+import { HttpMessages } from "../util/http-messages.enum";
 export class TrackController {
     private trackResource: TrackResource;
     private trackDetailResource: TrackDetailResource;
@@ -21,24 +22,30 @@ export class TrackController {
         const trackDetail: TrackDetail = await this.trackDetailResource.findByIdTrack(req.params.idTrack);
         if (trackDetail) {
             const track: Track[] = await this.trackResource.findByIdTrack(trackDetail);
-            track ? res.status(HttpStatusCode.OK).json(track) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+            track ? res.status(HttpStatusCode.OK).json(track) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+        } else {
+            res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.TRACK_NOT_FOUND });
         }
-        res.status(HttpStatusCode.NOT_FOUND).end();
+
     }
     async findByCodUser(req: Request, res: Response): Promise<any> {
         const user: User = await this.userResource.findByIdUser(req.params.idUser);
         if (user) {
             const track: Track[] = await this.trackResource.findByCodUser(user);
-            track ? res.status(HttpStatusCode.OK).json(track) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+            track ? res.status(HttpStatusCode.OK).json(track) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+        } else {
+            res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.USER_NOT_FOUND });
         }
-        res.status(HttpStatusCode.NOT_FOUND).end();
+
     }
     async findByCodContact(req: Request, res: Response): Promise<any> {
         const user: User = await this.userResource.findByIdUser(req.params.idUser);
         if (user) {
             const track: Track[] = await this.trackResource.findByCodContact(user);
-            track ? res.status(HttpStatusCode.OK).json(track) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+            track ? res.status(HttpStatusCode.OK).json(track) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+        } else {
+            res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.USER_NOT_FOUND });
         }
-        res.status(HttpStatusCode.NOT_FOUND).end();
+
     }
 }

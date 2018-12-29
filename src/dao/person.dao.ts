@@ -1,13 +1,13 @@
-import { Person } from "../../models/person.model";
-import { PersonBuilder } from "../../models/builders/person.builder";
-import PersonSchema from "../../schemas/person.schema";
-import { PersonInputDto } from "../../dtos/personInput.dto";
+import { Person } from "../models/person.model";
+import { PersonBuilder } from "../models/builders/person.builder";
+import PersonSchema from "../schemas/person.schema";
+import { PersonInputDto } from "../dtos/personInput.dto";
 import { Document } from "mongoose";
-import logger from "../../util/logger";
+import logger from "../util/logger";
 import { UserDao } from "./user.dao";
-import { User } from "../../models/user.model";
-import { UserBuilder } from "../../models/builders/user.builder";
-import UserSchema from "../../schemas/user.schema";
+import { User } from "../models/user.model";
+import { UserBuilder } from "../models/builders/user.builder";
+import UserSchema from "../schemas/user.schema";
 export class PersonDao {
     private userDao: UserDao;
     constructor() {

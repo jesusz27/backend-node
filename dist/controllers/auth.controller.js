@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_codes_enum_1 = require("../util/http-status-codes.enum");
 const user_resource_1 = require("../resources/user.resource");
 const converterModelsToDtos_service_1 = require("../services/converterModelsToDtos.service");
+const http_messages_enum_1 = require("../util/http-messages.enum");
 class AuthController {
     constructor() {
         this.userResource = new user_resource_1.UserResource();
@@ -21,7 +22,7 @@ class AuthController {
             const userDto = req.body;
             const user = yield this.userResource.findByIdUserAndPassword(userDto);
             const userOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
-            user ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+            user ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.INVALID_USER_OR_PASSWORD });
         });
     }
     singUp(req, res) {
@@ -32,10 +33,10 @@ class AuthController {
                 const userDto = req.body;
                 const user = yield this.userResource.create(userDto);
                 const userOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
-                user ? res.status(http_status_codes_enum_1.HttpStatusCode.CREATED).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+                user ? res.status(http_status_codes_enum_1.HttpStatusCode.CREATED).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
             }
             else {
-                res.status(http_status_codes_enum_1.HttpStatusCode.CONFLICT).end();
+                res.status(http_status_codes_enum_1.HttpStatusCode.CONFLICT).json({ message: http_messages_enum_1.HttpMessages.EXIST_USER_EMAIL });
             }
         });
     }

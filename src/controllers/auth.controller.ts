@@ -5,6 +5,7 @@ import { UserResource } from "../resources/user.resource";
 import { UserInputDto } from "../dtos/userInput.dto";
 import { UserOutputDto } from "../dtos/userOutput.dto";
 import { ConverterModelsToDtosService } from "../services/converterModelsToDtos.service";
+import { HttpMessages } from "../util/http-messages.enum";
 export class AuthController {
     private userResource: UserResource;
     private converterModelsToDtosService: ConverterModelsToDtosService;
@@ -18,7 +19,7 @@ export class AuthController {
         const userDto: UserInputDto = req.body;
         const user: User = await this.userResource.findByIdUserAndPassword(userDto);
         const userOutputDto: UserOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
-        user ? res.status(HttpStatusCode.OK).json(userOutputDto) : res.status(HttpStatusCode.NOT_FOUND).end();
+        user ? res.status(HttpStatusCode.OK).json(userOutputDto) : res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.INVALID_USER_OR_PASSWORD });
     }
     async singUp(req: Request, res: Response): Promise<any> {
         const idUser: User = await this.userResource.findByIdUser(req.body.idUser);
@@ -27,9 +28,9 @@ export class AuthController {
             const userDto: UserInputDto = req.body;
             const user: User = await this.userResource.create(userDto);
             const userOutputDto: UserOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
-            user ? res.status(HttpStatusCode.CREATED).json(userOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+            user ? res.status(HttpStatusCode.CREATED).json(userOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
         } else {
-            res.status(HttpStatusCode.CONFLICT).end();
+            res.status(HttpStatusCode.CONFLICT).json({message: HttpMessages.EXIST_USER_EMAIL});
         }
     }
 

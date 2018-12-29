@@ -1,7 +1,7 @@
 import { Track } from "../models/track.model";
 import logger from "../util/logger";
 import { TrackInputDto } from "../dtos/trackInput.dto";
-import { TrackDao } from "../services/dao/track.dao";
+import { TrackDao } from "../dao/track.dao";
 import { TrackDetail } from "../models/trackDetail.model";
 import { User } from "../models/user.model";
 export class TrackResource {

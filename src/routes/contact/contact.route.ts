@@ -13,7 +13,7 @@ contactRoutes.post("", (req, res) => {
 contactRoutes.get("/:idUser", (req, res) => {
     contactController.findByCodUser(req, res);
 });
-contactRoutes.put(ID + STATUS, (req, res) => {
+contactRoutes.put(ID + "/status" + STATUS, (req, res) => {
     contactController.update(req, res);
 });
 contactRoutes.delete(ID, (req, res) => {

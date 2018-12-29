@@ -12,6 +12,7 @@ const http_status_codes_enum_1 = require("../util/http-status-codes.enum");
 const contact_resource_1 = require("../resources/contact.resource");
 const user_resource_1 = require("../resources/user.resource");
 const converterModelsToDtos_service_1 = require("../services/converterModelsToDtos.service");
+const http_messages_enum_1 = require("../util/http-messages.enum");
 class ContactController {
     constructor() {
         this.contactResource = new contact_resource_1.ContactResource();
@@ -22,20 +23,15 @@ class ContactController {
         return __awaiter(this, void 0, void 0, function* () {
             const contactInputDto = req.body;
             const contact = yield this.contactResource.create(contactInputDto);
-            if (contact) {
-                const contactOutputDto = this.converterModelsToDtosService.toContactOutputDto(contact);
-                contactOutputDto ? res.status(http_status_codes_enum_1.HttpStatusCode.CREATED).json(contactOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
-            }
-            else {
-                res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
-            }
+            const contactOutputDto = this.converterModelsToDtosService.toContactOutputDto(contact);
+            contact ? res.status(http_status_codes_enum_1.HttpStatusCode.CREATED).json(contactOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
         });
     }
     findByCodUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const idUser = req.params.idUser;
             const contact = yield this.contactResource.findByCodUser(idUser);
-            contact ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(this.converterModelsToDtosService.toArrayContactOutputDto(contact)) : res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND);
+            contact ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(this.converterModelsToDtosService.toArrayContactOutputDto(contact)) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
         });
     }
     update(req, res) {
@@ -46,10 +42,10 @@ class ContactController {
             if (contact) {
                 const contact = yield this.contactResource.update(id, status);
                 const contactOutputDto = this.converterModelsToDtosService.toContactOutputDto(contact);
-                contact ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(contactOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+                contact ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(contactOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
             }
             else {
-                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.IVALID_IDCONTACT });
             }
         });
     }

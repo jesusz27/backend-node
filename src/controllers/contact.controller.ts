@@ -8,7 +8,7 @@ import { UserResource } from "../resources/user.resource";
 import { User } from "../models/user.model";
 import { ConverterModelsToDtosService } from "../services/converterModelsToDtos.service";
 import { ContactOutputDto } from "../dtos/contactOutput.dto";
-
+import { HttpMessages } from "../util/http-messages.enum";
 export class ContactController {
     private contactResource: ContactResource;
     private userResource: UserResource;
@@ -22,17 +22,13 @@ export class ContactController {
     async create(req: Request, res: Response): Promise<any> {
         const contactInputDto: ContactInputDto = req.body;
         const contact: Contact = await this.contactResource.create(contactInputDto);
-        if (contact) {
-            const contactOutputDto: ContactOutputDto = this.converterModelsToDtosService.toContactOutputDto(contact);
-            contactOutputDto ? res.status(HttpStatusCode.CREATED).json(contactOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
-        } else {
-            res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
-        }
+        const contactOutputDto: ContactOutputDto = this.converterModelsToDtosService.toContactOutputDto(contact);
+        contact ? res.status(HttpStatusCode.CREATED).json(contactOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
     }
     async findByCodUser(req: Request, res: Response): Promise<any> {
         const idUser: string = req.params.idUser;
         const contact: Contact[] = await this.contactResource.findByCodUser(idUser);
-        contact ? res.status(HttpStatusCode.OK).json(this.converterModelsToDtosService.toArrayContactOutputDto(contact)) : res.status(HttpStatusCode.NOT_FOUND);
+        contact ? res.status(HttpStatusCode.OK).json(this.converterModelsToDtosService.toArrayContactOutputDto(contact)) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
     }
     async update(req: Request, res: Response): Promise<any> {
         const id: string = req.params.id;
@@ -41,9 +37,9 @@ export class ContactController {
         if (contact) {
             const contact: Contact = await this.contactResource.update(id, status);
             const contactOutputDto: ContactOutputDto = this.converterModelsToDtosService.toContactOutputDto(contact);
-            contact ? res.status(HttpStatusCode.OK).json(contactOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+            contact ? res.status(HttpStatusCode.OK).json(contactOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
         } else {
-            res.status(HttpStatusCode.NOT_FOUND).end();
+            res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.IVALID_IDCONTACT});
         }
     }
     async delete(req: Request, res: Response): Promise<any> {

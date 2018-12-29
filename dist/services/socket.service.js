@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const contact_resource_1 = require("../resources/contact.resource");
-const trackDetail_dao_1 = require("../services/dao/trackDetail.dao");
-const track_dao_1 = require("../services/dao/track.dao");
+const trackDetail_dao_1 = require("../dao/trackDetail.dao");
+const track_dao_1 = require("../dao/track.dao");
 const oneSignal_service_1 = require("./oneSignal.service");
 class SocketService {
     constructor() {

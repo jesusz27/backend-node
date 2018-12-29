@@ -7,7 +7,7 @@ const personController: PersonController = new PersonController();
 personRoutes.post("/:idUser", (req, res) => {
     personController.create(req, res);
 });
-personRoutes.put("", (req, res) => {
+personRoutes.put("/:idUser", (req, res) => {
     personController.update(req, res);
 });
 personRoutes.get("/:idUser", (req, res) => {

@@ -50,6 +50,7 @@
     "express": "^4.16.3",
     "express-fileupload": "^0.4.0",
     "express-flash": "0.0.2",
+    "express-list-routes": "^0.1.4",
     "express-session": "^1.15.6",
     "express-status-monitor": "^1.0.1",
     "express-validator": "^4.3.0",
@@ -73,8 +74,8 @@
     "socket.io": "^2.1.1",
     "sonarqube-scanner": "^2.1.2",
     "tslint": "^5.9.1",
-    "winston": "^2.4.2",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "winston": "^2.4.2"
   },
   "devDependencies": {
     "@types/async": "^2.0.49",

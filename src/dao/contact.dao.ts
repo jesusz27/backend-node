@@ -1,13 +1,13 @@
-import { Contact } from "../../models/contact.model";
+import { Contact } from "../models/contact.model";
 import { UserDao } from "./user.dao";
-import { User } from "../../models/user.model";
-import ContactSchema from "../../schemas/contact.schema";
-import { ContactBuilder } from "../../models/builders/contact.builder";
-import { ContactInputDto } from "../../dtos/contactInput.dto";
+import { User } from "../models/user.model";
+import ContactSchema from "../schemas/contact.schema";
+import { ContactBuilder } from "../models/builders/contact.builder";
+import { ContactInputDto } from "../dtos/contactInput.dto";
 import { Document } from "mongoose";
-import UserSchema from "../../schemas/user.schema";
-import { UserBuilder } from "../../models/builders/user.builder";
-import logger from "../../util/logger";
+import UserSchema from "../schemas/user.schema";
+import { UserBuilder } from "../models/builders/user.builder";
+import logger from "../util/logger";
 
 export class ContactDao {
     private userDao: UserDao;
@@ -79,6 +79,7 @@ export class ContactDao {
     async findByCodUser(user: User): Promise<Contact[]> {
         return ContactSchema.find({ codUser: user })
             .then(async (contactsDocument: Document[]) => {
+                console.log(contactsDocument);
                 const contactsPopulate: Document[] = await UserSchema.populate(contactsDocument, { path: "codUser codContact" });
                 const contacts: Contact[] = contactsPopulate ? ContactDao.toArrayContacts(contactsPopulate) : undefined;
                 return contacts;

@@ -6,6 +6,7 @@ import { ConverterModelsToDtosService } from "../services/converterModelsToDtos.
 import { UserOutputDto } from "../dtos/userOutput.dto";
 import { UserInputDto } from "../dtos/userInput.dto";
 import { UserService } from "../services/user.service";
+import { HttpMessages } from "../util/http-messages.enum";
 export class UserController {
   private userResource: UserResource;
   private converterModelsToDtosService: ConverterModelsToDtosService;
@@ -18,12 +19,12 @@ export class UserController {
   async findByIdUser(req: Request, res: Response): Promise<any> {
     const user: User = await this.userResource.findByIdUser(req.params.idUser);
     const userOutputDto: UserOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
-    user ? res.status(HttpStatusCode.OK).json(userOutputDto) : res.status(HttpStatusCode.NOT_FOUND);
+    user ? res.status(HttpStatusCode.OK).json(userOutputDto) : res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.USER_NOT_FOUND });
   }
   async findAll(req: Request, res: Response): Promise<any> {
     const user: User[] = await this.userResource.findAll();
     const userOutputDto: UserOutputDto[] = this.converterModelsToDtosService.toArrayUserOutputDto(user);
-    user ? res.status(HttpStatusCode.OK).json(userOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+    user ? res.status(HttpStatusCode.OK).json(userOutputDto) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
   }
   async updateIdNotification(req: Request, res: Response): Promise<any> {
     const userDto: UserInputDto = req.body;
@@ -34,9 +35,9 @@ export class UserController {
       if (previousUser) await this.userResource.deleteIdNotification(previousUser.getId());
       const user: User = await this.userResource.findByIdUser(userDto.idUser);
       const userUpdate: User = await this.userResource.updateIdNotification(user.getId(), userDto.idNotification);
-      user ? res.status(HttpStatusCode.OK).json(userUpdate) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+      user ? res.status(HttpStatusCode.OK).json(userUpdate) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
     } else {
-      res.status(HttpStatusCode.NOT_FOUND).end();
+      res.status(HttpStatusCode.CONFLICT).json({ message: HttpMessages.EXIST_USER_IDNOTIFICATION });
     }
   }
   async updateAvatar(req: any, res: Response): Promise<any> {
@@ -47,9 +48,9 @@ export class UserController {
     console.log(user);
     if (upload && User) {
       const newUser: User = await this.userResource.updateAvatar(user.getId(), upload);
-      res.status(HttpStatusCode.OK).json(user);
+      newUser ? res.status(HttpStatusCode.OK).json(user) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
     } else {
-      res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+      res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
     }
   }
   async updatePassword(req: Request, res: Response): Promise<any> {
@@ -59,9 +60,9 @@ export class UserController {
     console.log(user);
     if (user) {
       const newPassword: User = await this.userResource.updatePassword(user.getId(), userDto.newPassword);
-      res.status(HttpStatusCode.OK).json(newPassword);
+      newPassword ? res.status(HttpStatusCode.OK).json(newPassword) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
     } else {
-      res.status(HttpStatusCode.BAD_REQUEST).end();
+      res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.INVALID_USER_OR_PASSWORD });
     }
   }
 }

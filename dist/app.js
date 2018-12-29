@@ -5,20 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const compression_1 = __importDefault(require("compression")); // compresses requests
-const express_session_1 = __importDefault(require("express-session"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const morgan_1 = __importDefault(require("morgan"));
 const expressStatusMonitor = require("express-status-monitor");
 const logger_1 = __importDefault(require("./util/logger"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const connect_mongo_1 = __importDefault(require("connect-mongo"));
 const path_1 = __importDefault(require("path"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const express_validator_1 = __importDefault(require("express-validator"));
 const secrets_1 = require("./util/secrets");
 const main_route_1 = __importDefault(require("./routes/main.route"));
 const cors = require("cors");
-const MongoStore = connect_mongo_1.default(express_session_1.default);
 // Load environment variables from .env file, where API keys and passwords are configured
 dotenv_1.default.config({ path: ".env" });
 // Create Express server

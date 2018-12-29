@@ -1,4 +1,4 @@
-import { ContactDao } from "../services/dao/contact.dao";
+import { ContactDao } from "../dao/contact.dao";
 import { Contact } from "../models/contact.model";
 import { User } from "../models/user.model";
 import { UserResource } from "../resources/user.resource";

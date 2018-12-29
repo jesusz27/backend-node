@@ -13,6 +13,7 @@ const user_model_1 = require("../models/user.model");
 const user_resource_1 = require("../resources/user.resource");
 const converterModelsToDtos_service_1 = require("../services/converterModelsToDtos.service");
 const user_service_1 = require("../services/user.service");
+const http_messages_enum_1 = require("../util/http-messages.enum");
 class UserController {
     constructor() {
         this.userResource = new user_resource_1.UserResource();
@@ -23,14 +24,14 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.userResource.findByIdUser(req.params.idUser);
             const userOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
-            user ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND);
+            user ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.USER_NOT_FOUND });
         });
     }
     findAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.userResource.findAll();
             const userOutputDto = this.converterModelsToDtosService.toArrayUserOutputDto(user);
-            user ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+            user ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
         });
     }
     updateIdNotification(req, res) {
@@ -44,10 +45,10 @@ class UserController {
                     yield this.userResource.deleteIdNotification(previousUser.getId());
                 const user = yield this.userResource.findByIdUser(userDto.idUser);
                 const userUpdate = yield this.userResource.updateIdNotification(user.getId(), userDto.idNotification);
-                user ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(userUpdate) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+                user ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(userUpdate) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
             }
             else {
-                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+                res.status(http_status_codes_enum_1.HttpStatusCode.CONFLICT).json({ message: http_messages_enum_1.HttpMessages.EXIST_USER_IDNOTIFICATION });
             }
         });
     }
@@ -60,10 +61,10 @@ class UserController {
             console.log(user);
             if (upload && user_model_1.User) {
                 const newUser = yield this.userResource.updateAvatar(user.getId(), upload);
-                res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(user);
+                newUser ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(user) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
             }
             else {
-                res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+                res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
             }
         });
     }
@@ -75,10 +76,10 @@ class UserController {
             console.log(user);
             if (user) {
                 const newPassword = yield this.userResource.updatePassword(user.getId(), userDto.newPassword);
-                res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(newPassword);
+                newPassword ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(newPassword) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
             }
             else {
-                res.status(http_status_codes_enum_1.HttpStatusCode.BAD_REQUEST).end();
+                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.INVALID_USER_OR_PASSWORD });
             }
         });
     }

@@ -1,8 +1,8 @@
-import { User } from "../../models/user.model";
-import logger from "../../util/logger";
-import UserSchema from "../../schemas/user.schema";
-import { UserBuilder } from "../../models/builders/user.builder";
-import { UserInputDto } from "../../dtos/userInput.dto";
+import { User } from "../models/user.model";
+import logger from "../util/logger";
+import UserSchema from "../schemas/user.schema";
+import { UserBuilder } from "../models/builders/user.builder";
+import { UserInputDto } from "../dtos/userInput.dto";
 import { Document } from "mongoose";
 
 export class UserDao {

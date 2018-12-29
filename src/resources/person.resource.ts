@@ -1,4 +1,4 @@
-import { PersonDao } from "../services/dao/person.dao";
+import { PersonDao } from "../dao/person.dao";
 import { Person } from "../models/person.model";
 import { PersonInputDto } from "../dtos/personInput.dto";
 export class PersonResource {

@@ -13,7 +13,6 @@ import expressValidator from "express-validator";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 import api from "./routes/main.route";
 const cors = require("cors");
-const MongoStore = mongo(session);
 
 // Load environment variables from .env file, where API keys and passwords are configured
 dotenv.config({ path: ".env" });
@@ -22,9 +21,9 @@ dotenv.config({ path: ".env" });
 const app = express();
 // Connect to MongoDB
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI, {useMongoClient: true})
-    .then(() => { logger.info("  >Conexion establecida con mongoDB."); })
-    .catch(err => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); /* process.exit();*/ });
+mongoose.connect(MONGODB_URI, { useMongoClient: true })
+  .then(() => { logger.info("  >Conexion establecida con mongoDB."); })
+  .catch(err => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); /* process.exit();*/ });
 
 // Express configuration
 app.set("port", process.env.PORT || 9095);

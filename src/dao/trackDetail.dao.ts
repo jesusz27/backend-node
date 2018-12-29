@@ -1,10 +1,10 @@
-import TrackDetailSchema from "../../schemas/trackDetail.schema";
-import { TrackDetail } from "../../models/trackDetail.model";
-import logger from "../../util/logger";
-import { TrackDetailBuilder } from "../../models/builders/trackDetail.builder";
-import { TrackInputDto } from "../../dtos/trackInput.dto";
+import TrackDetailSchema from "../schemas/trackDetail.schema";
+import { TrackDetail } from "../models/trackDetail.model";
+import logger from "../util/logger";
+import { TrackDetailBuilder } from "../models/builders/trackDetail.builder";
+import { TrackInputDto } from "../dtos/trackInput.dto";
 import { UserDao } from "./user.dao";
-import { User } from "../../models/user.model";
+import { User } from "../models/user.model";
 import { Document } from "mongoose";
 export class TrackDetailDao {
     private userDao: UserDao;

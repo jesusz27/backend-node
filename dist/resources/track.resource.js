@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const track_dao_1 = require("../services/dao/track.dao");
+const track_dao_1 = require("../dao/track.dao");
 class TrackResource {
     constructor() {
         this.trackDao = new track_dao_1.TrackDao();

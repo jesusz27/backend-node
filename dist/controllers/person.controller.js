@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const person_resource_1 = require("../resources/person.resource");
 const user_resource_1 = require("../resources/user.resource");
 const http_status_codes_enum_1 = require("../util/http-status-codes.enum");
+const http_messages_enum_1 = require("../util/http-messages.enum");
 class PersonController {
     constructor() {
         this.userResource = new user_resource_1.UserResource();
@@ -24,27 +25,27 @@ class PersonController {
                 if (!person) {
                     const personDto = req.body;
                     const person = yield this.personResource.create(personDto, req.params.idUser);
-                    person ? res.status(http_status_codes_enum_1.HttpStatusCode.CREATED).json(person) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+                    person ? res.status(http_status_codes_enum_1.HttpStatusCode.CREATED).json(person) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
                 }
                 else {
-                    res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+                    res.status(http_status_codes_enum_1.HttpStatusCode.CONFLICT).json({ message: http_messages_enum_1.HttpMessages.EXIST_USER_PROFILE });
                 }
             }
             else {
-                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.USER_NOT_FOUND });
             }
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const person = yield this.personResource.findById(req.body._id);
-            if (person) {
+            const user = yield this.userResource.findByIdUser(req.params.idUser);
+            if (user) {
                 const personDto = req.body;
                 const person = yield this.personResource.update(personDto);
-                person ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(person) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+                person ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(person) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
             }
             else {
-                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.USER_NOT_FOUND });
             }
         });
     }
@@ -53,10 +54,10 @@ class PersonController {
             const user = yield this.userResource.findByIdUser(req.params.idUser);
             if (user) {
                 const person = yield this.personResource.findByUser(user.getId());
-                person ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(person) : res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+                person ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(person) : res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.PERFIL_NOT_FOUND });
             }
             else {
-                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.USER_NOT_FOUND });
             }
         });
     }

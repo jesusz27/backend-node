@@ -1,4 +1,4 @@
-import { UserDao } from "../services/dao/user.dao";
+import { UserDao } from "../dao/user.dao";
 import { User } from "../models/user.model";
 import { UserInputDto } from "../dtos/userInput.dto";
 

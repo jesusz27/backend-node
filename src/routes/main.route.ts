@@ -1,5 +1,5 @@
 import express from "express";
-
+const expressListRoutes = require("express-list-routes");
 import dbRoutes from "./db/db.route";
 import userRoutes from "./user/user.route";
 import contactRoutes from "./contact/contact.route";
@@ -10,10 +10,16 @@ import personRoutes from "./person/person.route";
 const api = express.Router();
 
 api.use("/db", dbRoutes);
-api.use("/user", userRoutes);
-api.use("/contact", contactRoutes);
-api.use("/track", trackRoutes);
-api.use("/trackDetail", trackDetailRoutes);
+api.use("/users", userRoutes);
+api.use("/contacts", contactRoutes);
+api.use("/tracks", trackRoutes);
+api.use("/trackDetails", trackDetailRoutes);
 api.use("/auth", authRoutes);
-api.use("/person", personRoutes);
+api.use("/persons", personRoutes);
+expressListRoutes({ prefix: "/users" }, "users:", userRoutes);
+expressListRoutes({ prefix: "/contacts" }, "contact:", contactRoutes);
+expressListRoutes({ prefix: "/tracks" }, "track:", trackRoutes);
+expressListRoutes({ prefix: "/trackDetails" }, "trackDetail:", trackDetailRoutes);
+expressListRoutes({ prefix: "/auth" }, "auth:", authRoutes);
+expressListRoutes({ prefix: "/persons" }, "person:", personRoutes);
 export default api;

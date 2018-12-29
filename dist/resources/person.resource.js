@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const person_dao_1 = require("../services/dao/person.dao");
+const person_dao_1 = require("../dao/person.dao");
 class PersonResource {
     constructor() {
         this.personDao = new person_dao_1.PersonDao();

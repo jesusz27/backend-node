@@ -14,13 +14,13 @@ userRoutes.get("/:idUser", (req, res) => {
 userRoutes.get("", (req, res) => {
     userController.findAll(req, res);
 });
-userRoutes.put("/notification", (req, res) => {
+userRoutes.patch("/idnotification", (req, res) => {
     userController.updateIdNotification(req, res);
 });
-userRoutes.put("/pass", (req, res) => {
+userRoutes.patch("/password", (req, res) => {
     userController.updatePassword(req, res);
 });
-userRoutes.post("/avatar/:idUser", fileUpload(), (req, res) => {
+userRoutes.put("/:idUser/avatar", fileUpload(), (req, res) => {
     userController.updateAvatar(req, res);
 });
 exports.default = userRoutes;

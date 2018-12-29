@@ -12,6 +12,7 @@ const http_status_codes_enum_1 = require("../util/http-status-codes.enum");
 const track_resource_1 = require("../resources/track.resource");
 const trackDetail_resource_1 = require("../resources/trackDetail.resource");
 const user_resource_1 = require("../resources/user.resource");
+const http_messages_enum_1 = require("../util/http-messages.enum");
 class TrackController {
     constructor() {
         this.trackResource = new track_resource_1.TrackResource();
@@ -23,9 +24,11 @@ class TrackController {
             const trackDetail = yield this.trackDetailResource.findByIdTrack(req.params.idTrack);
             if (trackDetail) {
                 const track = yield this.trackResource.findByIdTrack(trackDetail);
-                track ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(track) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+                track ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(track) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
             }
-            res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+            else {
+                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.TRACK_NOT_FOUND });
+            }
         });
     }
     findByCodUser(req, res) {
@@ -33,9 +36,11 @@ class TrackController {
             const user = yield this.userResource.findByIdUser(req.params.idUser);
             if (user) {
                 const track = yield this.trackResource.findByCodUser(user);
-                track ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(track) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+                track ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(track) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
             }
-            res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+            else {
+                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.USER_NOT_FOUND });
+            }
         });
     }
     findByCodContact(req, res) {
@@ -43,9 +48,11 @@ class TrackController {
             const user = yield this.userResource.findByIdUser(req.params.idUser);
             if (user) {
                 const track = yield this.trackResource.findByCodContact(user);
-                track ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(track) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).end();
+                track ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(track) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
             }
-            res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).end();
+            else {
+                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.USER_NOT_FOUND });
+            }
         });
     }
 }
