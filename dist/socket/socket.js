@@ -31,7 +31,7 @@ class Socket {
                 }
                 console.log(userSocketList);
             });
-            socket.on("probar", function (location, response) {
+            socket.on("startSendingAlerts", function (location, response) {
                 return __awaiter(this, void 0, void 0, function* () {
                     const locationData = JSON.parse(location);
                     const userCurrent = findBySocketId(socket.id);
@@ -41,13 +41,10 @@ class Socket {
                         for (let i = 0; i < contact.length; i++) {
                             const contactCurrent = findByCodUser(contact[i]);
                             if (contactCurrent) {
-                                io.sockets.connected[contactCurrent.socketId].emit("receptor", location);
+                                io.sockets.connected[contactCurrent.socketId].emit("receptorAlerts", location);
                             }
                         }
-                    }
-                    const contact2 = yield socketService.findByCodUser(userCurrent);
-                    if (contact2) {
-                        const trackDetail = yield socketService.create(track, contact2);
+                        const trackDetail = yield socketService.create(track, userCurrent);
                         console.log("track detail");
                         console.log(trackDetail);
                     }

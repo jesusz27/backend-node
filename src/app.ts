@@ -14,18 +14,13 @@ import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 import api from "./routes/main.route";
 const cors = require("cors");
 
-// Load environment variables from .env file, where API keys and passwords are configured
 dotenv.config({ path: ".env" });
 
-// Create Express server
 const app = express();
-// Connect to MongoDB
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, { useMongoClient: true })
   .then(() => { logger.info("  >Conexion establecida con mongoDB."); })
-  .catch(err => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); /* process.exit();*/ });
-
-// Express configuration
+  .catch(err => { logger.error("  >Error de conexion a la DB. (Posiblemente no tengas mongoDB lanzado en local)" + err); });
 app.set("port", process.env.PORT || 9095);
 app.use(compression());
 app.use(bodyParser.json());
@@ -34,12 +29,8 @@ app.use(expressValidator());
 app.use(cors());
 app.use(morgan("dev"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-console.log("path" + path.join(__dirname, "uploads"));
+
 app.disable("etag");
-// app.use(require("express-status-monitor")());
-console.log("\n  >Estado del servidor en: http://localhost:9095/status \n");
 app.use("/", api);
-app.get("/", (req, res) => {
-  res.send("funcionandos");
-});
+
 export default app;

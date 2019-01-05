@@ -1,7 +1,7 @@
 export interface PersonInputDto {
-    _id: number;
+    _id?: number;
     firstName: string;
     lastName: string;
-    birthdate: Date;
+    birthdate?: Date;
     phone: number;
 }

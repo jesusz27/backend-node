@@ -54,10 +54,7 @@ export class TrackDetailDao {
     async update(id: number, location: string): Promise<TrackDetail> {
         return await TrackDetailSchema.updateOne({ _id: id }, { $set: { locationStorage: location} }, { new: true })
             .then((trackDetailDocument: Document) => {
-                console.log("Dao Update");
-                // console.log(trackDetailDocument);
-                // const trackDetail: TrackDetail = trackDetailDocument ? TrackDetailDao.toTrackDetail(trackDetailDocument) : undefined;
-                return trackDetailDocument;
+                return this.findById(id.toString());
             })
             .catch(err => {
                 logger.error(err);

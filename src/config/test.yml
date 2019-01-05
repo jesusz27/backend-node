@@ -30,3 +30,18 @@ contacts:
     codUser: {$oid: "261d87b8b260cf35147998ca"}
     codContact: {$oid: "161d87b8b260cf35147998ca"}
 
+# Tracks
+tracks:
+- &track0
+    _id: {$oid: "5b49ba1ff5dc292dc0f86447"}
+    codUser: {$oid: "161d87b8b260cf35147998ca"}
+    codContact: {$oid: "261d87b8b260cf35147998ca"}
+    trackDetail: {$oid: "5b49ba1ff3cd192dc0f86437"}
+
+# TrackDetails
+trackdetails:
+- &trackdetail0
+    _id: {$oid: "5b49ba1ff3cd192dc0f86437"} 
+    idTrack: 'ASWDSDS4S45A4SW4S5W4'
+    locationStorage: [{"accuracy":14.777999877929688,"altitude":672,"latitude":40.3884429,"longitude":-3.7227033,"idUser":"Jesusz27","idTrack":"AbCc4a77FabA9Da2BbC2"},{"accuracy":17.893999099731445,"altitude":672,"latitude":40.3884429,"longitude":-3.7227033,"idUser":"Jesusz27","idTrack":"AbCc4a77FabA9Da2BbC2"},{"accuracy":17.893999099731445,"altitude":672,"latitude":40.3884429,"longitude":-3.7227033,"idUser":"Jesusz27","idTrack":"AbCc4a77FabA9Da2BbC2"},{"accuracy":20.441999435424805,"altitude":672,"latitude":40.3884489,"longitude":-3.7227106,"idUser":"Jesusz27","idTrack":"AbCc4a77FabA9Da2BbC2"}]
+

@@ -31,9 +31,15 @@ export class PersonController {
     async update(req: Request, res: Response): Promise<any> {
         const user: User = await this.userResource.findByIdUser(req.params.idUser);
         if (user) {
-            const personDto: PersonInputDto = req.body;
-            const person: Person = await this.personResource.update(personDto);
-            person ? res.status(HttpStatusCode.OK).json(person) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+            const persona: Person = await this.personResource.findByUser(user.getId());
+            if (persona) {
+                const personDto: PersonInputDto = req.body;
+                personDto._id = persona.getId();
+                const person: Person = await this.personResource.update(personDto);
+                person ? res.status(HttpStatusCode.OK).json(person) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+            } else {
+                res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.PERFIL_NOT_FOUND });
+            }
         } else {
             res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.USER_NOT_FOUND });
         }

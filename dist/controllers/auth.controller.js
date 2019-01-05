@@ -12,17 +12,26 @@ const http_status_codes_enum_1 = require("../util/http-status-codes.enum");
 const user_resource_1 = require("../resources/user.resource");
 const converterModelsToDtos_service_1 = require("../services/converterModelsToDtos.service");
 const http_messages_enum_1 = require("../util/http-messages.enum");
+const token_service_1 = require("../services/token.service");
 class AuthController {
     constructor() {
         this.userResource = new user_resource_1.UserResource();
         this.converterModelsToDtosService = new converterModelsToDtos_service_1.ConverterModelsToDtosService();
+        this.tokenService = new token_service_1.TokenService();
     }
     logIn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userDto = req.body;
             const user = yield this.userResource.findByIdUserAndPassword(userDto);
             const userOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
-            user ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.INVALID_USER_OR_PASSWORD });
+            if (user) {
+                const token = this.tokenService.createToken(user);
+                res.setHeader("token", token);
+                res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(userOutputDto);
+            }
+            else {
+                res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.INVALID_USER_OR_PASSWORD });
+            }
         });
     }
     singUp(req, res) {
@@ -30,10 +39,15 @@ class AuthController {
             const idUser = yield this.userResource.findByIdUser(req.body.idUser);
             const email = yield this.userResource.findByEmail(req.body.email);
             if (!idUser && !email) {
-                const userDto = req.body;
-                const user = yield this.userResource.create(userDto);
-                const userOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
-                user ? res.status(http_status_codes_enum_1.HttpStatusCode.CREATED).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
+                if (req.body.idUser && req.body.email && req.body.password) {
+                    const userDto = req.body;
+                    const user = yield this.userResource.create(userDto);
+                    const userOutputDto = this.converterModelsToDtosService.toUserOutputDto(user);
+                    user ? res.status(http_status_codes_enum_1.HttpStatusCode.CREATED).json(userOutputDto) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
+                }
+                else {
+                    res.status(http_status_codes_enum_1.HttpStatusCode.BAD_REQUEST).json({ message: http_messages_enum_1.HttpMessages.EMPTY_FIELDS });
+                }
             }
             else {
                 res.status(http_status_codes_enum_1.HttpStatusCode.CONFLICT).json({ message: http_messages_enum_1.HttpMessages.EXIST_USER_EMAIL });

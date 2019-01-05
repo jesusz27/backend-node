@@ -30,7 +30,8 @@ export class SocketService {
         }
         return contactStr;
     }
-    async create(trackInput: TrackInputDto, contact: Contact[]): Promise<string> {
+    async create(trackInput: TrackInputDto, userCurrent: string): Promise<string> {
+        const contact: Contact[] = await this.findByCodUser(userCurrent);
         const trackDetailSearch: TrackDetail = await this.trackDetailDao.findByIdTrack(trackInput.idTrack);
         let trackDetail: TrackDetail = undefined;
         if (!trackDetailSearch) {

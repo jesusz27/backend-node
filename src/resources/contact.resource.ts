@@ -12,14 +12,12 @@ export class ContactResource {
         this.contactDao = new ContactDao();
         this.userResource = new UserResource();
     }
-    async create(contactDto: ContactInputDto): Promise<Contact> {
-        return await this.contactDao.create(contactDto);
+    async create(user: User, contact: User): Promise<Contact> {
+        return await this.contactDao.create(user, contact);
     }
-    /* async findByCodUserAndCodContact(contactInputDto: ContactInputDto): Promise<Contact[]> {
-         const topUser: User = await this.userResource.findByIdUser(contactInputDto.codUser);
-         const lowerUser: User = await this.userResource.findByIdUser(contactInputDto.codContact);
-         return this.contactDao.findByCodUserAndCodContact(topUser, lowerUser);
-     }*/
+    async findByCodUserAndCodContact(user: User, contact: User): Promise<Contact> {
+        return await this.contactDao.findByCodUserAndCodContact(user, contact);
+    }
     async findByCodUser(idUser: string): Promise<Contact[]> {
         const user: User = await this.userResource.findByIdUser(idUser);
         return this.contactDao.findByCodUser(user);

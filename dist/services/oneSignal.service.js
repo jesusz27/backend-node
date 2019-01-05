@@ -7,7 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const logger_1 = __importDefault(require("../util/logger"));
 class OneSignalService {
     constructor() {
         this.oneSignal = require("onesignal-node");
@@ -24,7 +28,7 @@ class OneSignalService {
             });
             const firstNotification = new this.oneSignal.Notification({
                 contents: {
-                    en: "Test notification",
+                    en: "Alerta tienes un contacto en peligro..!",
                     tr: "Test mesajı"
                 }
             });
@@ -32,10 +36,10 @@ class OneSignalService {
             firstNotification.setTargetDevices(userNotification);
             myClient.sendNotification(firstNotification, function (err, httpResponse, data) {
                 if (err) {
-                    console.log("Something went wrong...");
+                    logger_1.default.error("  >Algo salió mal)" + err);
                 }
                 else {
-                    console.log(data);
+                    logger_1.default.info("  >CONTACTOS A ENVIAR." + data);
                 }
             });
         });

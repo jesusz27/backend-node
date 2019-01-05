@@ -10,11 +10,8 @@ import { Document } from "mongoose";
 import { User } from "../models/user.model";
 export class TrackDao {
     constructor() {
-
     }
-    /*  private static toTrack(document: Document): Track {
-          return new TrackBuilder().setId(document.get("_id")).setCodUser(document.get("codUser")).build();
-      }*/
+
     private static toTrack(document: any): Track {
         return new TrackBuilder()
             .setId(document.get("_id"))

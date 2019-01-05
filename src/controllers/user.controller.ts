@@ -28,14 +28,17 @@ export class UserController {
   }
   async updateIdNotification(req: Request, res: Response): Promise<any> {
     const userDto: UserInputDto = req.body;
-    console.log(req.body);
     const user: User = await this.userResource.findByIdUserAndIdNotification(userDto);
     if (!user) {
-      const previousUser: User = await this.userResource.findByIdNotification(userDto.idNotification);
-      if (previousUser) await this.userResource.deleteIdNotification(previousUser.getId());
       const user: User = await this.userResource.findByIdUser(userDto.idUser);
-      const userUpdate: User = await this.userResource.updateIdNotification(user.getId(), userDto.idNotification);
-      user ? res.status(HttpStatusCode.OK).json(userUpdate) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+      if (user) {
+        const previousUser: User = await this.userResource.findByIdNotification(userDto.idNotification);
+        if (previousUser) await this.userResource.deleteIdNotification(previousUser.getId());
+        const userUpdate: User = await this.userResource.updateIdNotification(user.getId(), userDto.idNotification);
+        user ? res.status(HttpStatusCode.OK).json(userUpdate) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+      } else {
+        res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.USER_NOT_FOUND });
+      }
     } else {
       res.status(HttpStatusCode.CONFLICT).json({ message: HttpMessages.EXIST_USER_IDNOTIFICATION });
     }
@@ -44,25 +47,25 @@ export class UserController {
     const idUser: string = req.params.idUser;
     const upload: string = await this.userService.uploadAvatar(req);
     const user: User = await this.userResource.findByIdUser(idUser);
-    console.log(idUser);
-    console.log(user);
-    if (upload && User) {
-      const newUser: User = await this.userResource.updateAvatar(user.getId(), upload);
-      newUser ? res.status(HttpStatusCode.OK).json(user) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+    if (user) {
+      if (upload) {
+        const newUser: User = await this.userResource.updateAvatar(user.getId(), upload);
+        newUser ? res.status(HttpStatusCode.OK).json(user) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+      } else {
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+      }
     } else {
-      res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+      res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.USER_NOT_FOUND });
     }
   }
   async updatePassword(req: Request, res: Response): Promise<any> {
     const userDto: UserInputDto = req.body;
-    console.log(userDto);
     const user: User = await this.userResource.findByIdUserAndPassword(userDto);
-    console.log(user);
     if (user) {
       const newPassword: User = await this.userResource.updatePassword(user.getId(), userDto.newPassword);
       newPassword ? res.status(HttpStatusCode.OK).json(newPassword) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
     } else {
-      res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.INVALID_USER_OR_PASSWORD });
+      res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.INVALID_PASSWORD });
     }
   }
 }

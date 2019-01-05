@@ -30,7 +30,6 @@ export class DbService {
         let success = false;
         const contents = fs.readFileSync("./src/config/test.yml", "utf8");
         const parsed = this.yaml.safeLoad(contents);
-        // const backupDb = JSON.parse(fs.readFileSync("../config/backupDb.json", "utf8"));
         await this.dookie.push(MONGODB_URI, parsed)
             .then(() => {
                 logger.info("DB poblada.");

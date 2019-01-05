@@ -1,13 +1,9 @@
 import errorHandler from "errorhandler";
 import app from "./app";
 import Socket from "./socket/socket";
-/**
- * Error Handler. Provides full stack - remove for production
- */
+
 app.use(errorHandler());
-/**
- * Start Express server.
- */
+
 const options = {
   pingTimeout: 3000,
   pingInterval: 3000
@@ -23,9 +19,5 @@ const server = serve.listen(app.get("port"), () => {
     app.get("port"),
     app.get("env")
   );
-  console.log("  >Press CTRL-C to stop\n");
 });
-
-
-
 export default server;

@@ -9,5 +9,12 @@ export enum HttpMessages {
   PERFIL_NOT_FOUND = "Perfil no encontrado",
   NO_CONTENT = "Sin contenido",
   INVALID_USER_OR_PASSWORD = "Usuario o contraseña invalido",
+  EMPTY_FIELDS= "campos vacios",
+  INVALID_STATUS= "estado invalido",
+  INVALID_PASSWORD = "contraseña invalida",
   IVALID_IDCONTACT = "Id de contacto invalido",
+  NO_TOKEN = "Tu petición no tiene cabecera de autorización",
+  TOKEN_EXPIRED = "El token ha expirado",
+  TOKEN_INVALID = "El token es invalido",
+  CONTACT_EXIST = "usuario ya existe como contacto",
 }

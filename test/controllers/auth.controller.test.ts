@@ -24,9 +24,21 @@ describe("POST " + END_POINT + LOGIN, () => {
     });
 });
 
+describe("POST " + END_POINT + LOGIN, () => {
+    it(`expect return: ${HttpStatusCode.NOT_FOUND}`, (done) => {
+        const userInputDto: UserInputDto = { idUser: "Jesusz27", password: "aaaa" };
+        return request(app).post(END_POINT + LOGIN)
+            .send(userInputDto)
+            .end(async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.NOT_FOUND);
+                done();
+            });
+    });
+});
+
 describe("POST " + END_POINT + SINGUP, () => {
     it(`expect return: ${HttpStatusCode.CREATED} + userOutputDto `, (done) => {
-        const userInputDto: UserInputDto = { idUser: "Master", password: "1234a" , email : "master@master.com" };
+        const userInputDto: UserInputDto = { idUser: "Master", password: "1234a", email: "master@master.com" };
         return request(app).post(END_POINT + SINGUP)
             .send(userInputDto)
             .end(async (err, res) => {
@@ -39,8 +51,20 @@ describe("POST " + END_POINT + SINGUP, () => {
 });
 
 describe("POST " + END_POINT + SINGUP, () => {
+    it(`expect return: ${HttpStatusCode.BAD_REQUEST} `, (done) => {
+        const userInputDto: UserInputDto = { };
+        return request(app).post(END_POINT + SINGUP)
+            .send(userInputDto)
+            .end(async (err, res) => {
+                expect(res.status).to.equal(HttpStatusCode.BAD_REQUEST);
+                done();
+            });
+    });
+});
+
+describe("POST " + END_POINT + SINGUP, () => {
     it(`expect return: ${HttpStatusCode.CONFLICT} `, (done) => {
-        const userInputDto: UserInputDto = { idUser: "Jesusz27", password: "1234a" , email : "master@master.com" };
+        const userInputDto: UserInputDto = { idUser: "Jesusz27", password: "1234a", email: "master@master.com" };
         return request(app).post(END_POINT + SINGUP)
             .send(userInputDto)
             .end(async (err, res) => {

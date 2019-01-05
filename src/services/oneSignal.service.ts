@@ -1,5 +1,6 @@
 
 import { Contact } from "../models/contact.model";
+import  logger from "../util/logger";
 export class OneSignalService {
     private oneSignal: any;
     constructor() {
@@ -16,7 +17,7 @@ export class OneSignalService {
         });
         const firstNotification = new this.oneSignal.Notification({
             contents: {
-                en: "Test notification",
+                en: "Alerta tienes un contacto en peligro..!",
                 tr: "Test mesajı"
             }
         });
@@ -24,9 +25,9 @@ export class OneSignalService {
         firstNotification.setTargetDevices(userNotification);
         myClient.sendNotification(firstNotification, function (err: any, httpResponse: any, data: any) {
             if (err) {
-                console.log("Something went wrong...");
+                logger.error("  >Algo salió mal)" + err);
             } else {
-                console.log(data);
+                logger.info("  >CONTACTOS A ENVIAR." + data);
             }
         });
 

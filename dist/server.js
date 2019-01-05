@@ -6,13 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const errorhandler_1 = __importDefault(require("errorhandler"));
 const app_1 = __importDefault(require("./app"));
 const socket_1 = __importDefault(require("./socket/socket"));
-/**
- * Error Handler. Provides full stack - remove for production
- */
 app_1.default.use(errorhandler_1.default());
-/**
- * Start Express server.
- */
 const options = {
     pingTimeout: 3000,
     pingInterval: 3000
@@ -24,7 +18,6 @@ socket.io = io;
 socket.loadSocket();
 const server = serve.listen(app_1.default.get("port"), () => {
     console.log("  >App is running at http://localhost:%d in %s mode", app_1.default.get("port"), app_1.default.get("env"));
-    console.log("  >Press CTRL-C to stop\n");
 });
 exports.default = server;
 //# sourceMappingURL=server.js.map

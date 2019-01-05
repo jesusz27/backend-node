@@ -15,16 +15,16 @@ class ContactResource {
         this.contactDao = new contact_dao_1.ContactDao();
         this.userResource = new user_resource_1.UserResource();
     }
-    create(contactDto) {
+    create(user, contact) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.contactDao.create(contactDto);
+            return yield this.contactDao.create(user, contact);
         });
     }
-    /* async findByCodUserAndCodContact(contactInputDto: ContactInputDto): Promise<Contact[]> {
-         const topUser: User = await this.userResource.findByIdUser(contactInputDto.codUser);
-         const lowerUser: User = await this.userResource.findByIdUser(contactInputDto.codContact);
-         return this.contactDao.findByCodUserAndCodContact(topUser, lowerUser);
-     }*/
+    findByCodUserAndCodContact(user, contact) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.contactDao.findByCodUserAndCodContact(user, contact);
+        });
+    }
     findByCodUser(idUser) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.userResource.findByIdUser(idUser);

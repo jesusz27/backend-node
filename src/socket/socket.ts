@@ -31,7 +31,7 @@ export default class Socket {
                 console.log(userSocketList);
             });
 
-            socket.on("probar", async function (location: any, response: any) {
+            socket.on("startSendingAlerts", async function (location: any, response: any) {
                 const locationData: LocationDto = JSON.parse(location);
                 const userCurrent = findBySocketId(socket.id);
                 const track: TrackInputDto = { idTrack: locationData.idTrack, location: location };
@@ -40,16 +40,14 @@ export default class Socket {
                     for (let i = 0; i < contact.length; i++) {
                         const contactCurrent = findByCodUser(contact[i]);
                         if (contactCurrent) {
-                            io.sockets.connected[contactCurrent.socketId].emit("receptor", location);
+                            io.sockets.connected[contactCurrent.socketId].emit("receptorAlerts", location);
                         }
                     }
-                }
-                const contact2: Contact[] = await socketService.findByCodUser(userCurrent);
-                if (contact2) {
-                    const trackDetail: any = await socketService.create(track, contact2);
+                    const trackDetail: any = await socketService.create(track, userCurrent);
                     console.log("track detail");
                     console.log(trackDetail);
                 }
+
                 response(JSON.stringify(contact));
             });
 

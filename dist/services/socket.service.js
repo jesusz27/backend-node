@@ -35,8 +35,9 @@ class SocketService {
             return contactStr;
         });
     }
-    create(trackInput, contact) {
+    create(trackInput, userCurrent) {
         return __awaiter(this, void 0, void 0, function* () {
+            const contact = yield this.findByCodUser(userCurrent);
             const trackDetailSearch = yield this.trackDetailDao.findByIdTrack(trackInput.idTrack);
             let trackDetail = undefined;
             if (!trackDetailSearch) {

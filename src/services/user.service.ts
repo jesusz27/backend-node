@@ -8,7 +8,6 @@ export class UserService {
             type = file.mimetype;
         const uploadpath = path.join("dist", "uploads", name);
         let uploaded = "uploads/" + name;
-        console.log("ruta" + path.join(uploadpath));
         file.mv(uploadpath, function (err: any) {
             if (err) {
                 uploaded = undefined;

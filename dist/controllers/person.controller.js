@@ -40,9 +40,16 @@ class PersonController {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.userResource.findByIdUser(req.params.idUser);
             if (user) {
-                const personDto = req.body;
-                const person = yield this.personResource.update(personDto);
-                person ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(person) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
+                const persona = yield this.personResource.findByUser(user.getId());
+                if (persona) {
+                    const personDto = req.body;
+                    personDto._id = persona.getId();
+                    const person = yield this.personResource.update(personDto);
+                    person ? res.status(http_status_codes_enum_1.HttpStatusCode.OK).json(person) : res.status(http_status_codes_enum_1.HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: http_messages_enum_1.HttpMessages.INTERNAL_SERVER_ERROR });
+                }
+                else {
+                    res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.PERFIL_NOT_FOUND });
+                }
             }
             else {
                 res.status(http_status_codes_enum_1.HttpStatusCode.NOT_FOUND).json({ message: http_messages_enum_1.HttpMessages.USER_NOT_FOUND });

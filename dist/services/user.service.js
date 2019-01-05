@@ -20,7 +20,6 @@ class UserService {
             const file = req.files.avatar, name = file.name, type = file.mimetype;
             const uploadpath = path_1.default.join("dist", "uploads", name);
             let uploaded = "uploads/" + name;
-            console.log("ruta" + path_1.default.join(uploadpath));
             file.mv(uploadpath, function (err) {
                 if (err) {
                     uploaded = undefined;
