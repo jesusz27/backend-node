@@ -13,7 +13,7 @@ const SINGUP = "/singup";
 
 describe("POST " + END_POINT + LOGIN, () => {
     it(`expect return: ${HttpStatusCode.OK} + userOutputDto`, (done) => {
-        const userInputDto: UserInputDto = { idUser: "Jesusz27", password: "1234a" };
+        const userInputDto: UserInputDto = { idUser: "Jesus1352", password: "1234a" };
         return request(app).post(END_POINT + LOGIN)
             .send(userInputDto)
             .end(async (err, res) => {
@@ -27,7 +27,7 @@ describe("POST " + END_POINT + LOGIN, () => {
 
 describe("POST " + END_POINT + LOGIN, () => {
     it(`expect return: ${HttpStatusCode.NOT_FOUND}`, (done) => {
-        const userInputDto: UserInputDto = { idUser: "Jesusz27", password: "aaaa" };
+        const userInputDto: UserInputDto = { idUser: "Jesus1352", password: "aaaa" };
         return request(app).post(END_POINT + LOGIN)
             .send(userInputDto)
             .end(async (err, res) => {
