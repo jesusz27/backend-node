@@ -10,6 +10,7 @@ const END_POINT = "/auth";
 const LOGIN = "/login";
 const SINGUP = "/singup";
 
+
 describe("POST " + END_POINT + LOGIN, () => {
     it(`expect return: ${HttpStatusCode.OK} + userOutputDto`, (done) => {
         const userInputDto: UserInputDto = { idUser: "Jesusz27", password: "1234a" };
@@ -52,7 +53,7 @@ describe("POST " + END_POINT + SINGUP, () => {
 
 describe("POST " + END_POINT + SINGUP, () => {
     it(`expect return: ${HttpStatusCode.BAD_REQUEST} `, (done) => {
-        const userInputDto: UserInputDto = { };
+        const userInputDto: UserInputDto = {};
         return request(app).post(END_POINT + SINGUP)
             .send(userInputDto)
             .end(async (err, res) => {

@@ -35,7 +35,7 @@ export class UserController {
         const previousUser: User = await this.userResource.findByIdNotification(userDto.idNotification);
         if (previousUser) await this.userResource.deleteIdNotification(previousUser.getId());
         const userUpdate: User = await this.userResource.updateIdNotification(user.getId(), userDto.idNotification);
-        user ? res.status(HttpStatusCode.OK).json(userUpdate) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
+        userUpdate ? res.status(HttpStatusCode.OK).json(userUpdate) : res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: HttpMessages.INTERNAL_SERVER_ERROR });
       } else {
         res.status(HttpStatusCode.NOT_FOUND).json({ message: HttpMessages.USER_NOT_FOUND });
       }

@@ -5,7 +5,8 @@ const chai = require("chai");
 const expect = chai.expect;
 const dbService: DbService = new DbService();
 
-beforeAll( async (done) => {
+
+beforeAll(async (done) => {
     const successSeedDb: boolean = await dbService.seed();
     if (!successSeedDb) {
         fail("Abortando lanzamiento de pruebas...");

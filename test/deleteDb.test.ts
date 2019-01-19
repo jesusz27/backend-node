@@ -5,7 +5,8 @@ const chai = require("chai");
 const expect = chai.expect;
 const dbService: DbService = new DbService();
 
-beforeAll( async (done) => {
+
+beforeAll(async (done) => {
     const successDeleteDb: boolean = await dbService.delete();
     if (!successDeleteDb) {
         fail("Abortando lanzamientos de pruebas...");

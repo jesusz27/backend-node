@@ -1,16 +1,17 @@
 {
-  "name": "express-typescript-starter",
-  "version": "0.1.0",
+  "name": "Back-end-Track-Security",
+  "version": "1.0.0",
   "engines": {
     "node": "8.9.4",
     "npm": "5.5.1"
   },
-  "description": "A starting point for Node.js express apps with TypeScript",
+  "description": "Back-end de Track Security",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/TypeScript-Node-Starter"
+    "url": "https://github.com/jesusz27/backend-node"
   },
-  "author": "jesus zea",
+  "author": "JESÚS ANTONI ZEA HUAMÁN",
+  "homepage": "https://zea-pfm.herokuapp.com",
   "license": "MIT",
   "scripts": {
     "start": "npm run build && npm run serve",
@@ -19,8 +20,9 @@
     "watch-node": "nodemon dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run watch-node\"",
     "all-test": "jest --forceExit deleteDb.test.ts && jest --forceExit seedDb.test.ts && npm run test auth.controller.test.ts && npm run test user.controller.test.ts && npm run test contact.controller.test.ts && npm run test track.controller.test.ts && npm run test trackDetail.controller.test.ts",
+    "unit-test": "jest --forceExit deleteDb.test.ts && jest --forceExit seedDb.test.ts  &&  npm run test trackDetail.controller.test.ts",
     "all-test-travis": "jest --forceExit deleteDb.test.ts && jest --forceExit seedDb.test.ts && npm run test auth.controller.test.ts && npm run test user.controller.test.ts && npm run test contact.controller.test.ts && npm run test track.controller.test.ts && npm run test trackDetail.controller.test.ts",
-    "test": "jest --forceExit --coverage --verbose",
+    "test": "jest --forceExit deleteDb.test.ts && jest --forceExit seedDb.test.ts && jest .controller. --forceExit --coverage --verbose",
     "watch-test": "npm run test -- --watchAll",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
@@ -31,7 +33,7 @@
     "debug": "npm run build && npm run watch-debug",
     "serve-debug": "nodemon --inspect dist/server.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\"",
-    "sonarcloud": "sonar-scanner -Dsonar.projectKey=jazh-70213154 -Dsonar.organization=jesusz27-github -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a23f5b9cdbfa0a3cfeb017613a0a16c9b32b0bf5 && npm run test"
+    "sonarcloud": "sonar-scanner -Dsonar.projectKey=jazh-70213154 -Dsonar.organization=jesusz27-github -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a23f5b9cdbfa0a3cfeb017613a0a16c9b32b0bf5"
   },
   "dependencies": {
     "@types/dookie": "^0.1.1",

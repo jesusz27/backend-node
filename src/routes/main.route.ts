@@ -1,6 +1,5 @@
 import express from "express";
 const expressListRoutes = require("express-list-routes");
-import dbRoutes from "./db/db.route";
 import userRoutes from "./user/user.route";
 import contactRoutes from "./contact/contact.route";
 import trackRoutes from "./track/track.route";
@@ -9,7 +8,6 @@ import authRoutes from "./auth/auth.route";
 import personRoutes from "./person/person.route";
 const api = express.Router();
 
-api.use("/db", dbRoutes);
 api.use("/users", userRoutes);
 api.use("/contacts", contactRoutes);
 api.use("/tracks", trackRoutes);

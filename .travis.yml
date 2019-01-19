@@ -11,7 +11,7 @@ services:
 before_script:
 - npm install
 script:
-- npm run all-test-travis
+- npm run test
 - sonar-scanner -Dsonar.projectKey=jazh-70213154 -Dsonar.organization=jesusz27-github
   -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a23f5b9cdbfa0a3cfeb017613a0a16c9b32b0bf5
 deploy:
